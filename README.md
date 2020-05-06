@@ -1,0 +1,2 @@
+# DAITSSinstallManual
+Page provides instructions for developers who are looking to install DAITSS on a Red Hat Enterprise Linux (RHEL) 6.x. This guide makes specific assumptions as follows:    User has a working knowledge of getting around Linux bash including switching users, running commands, navigating through directories, and basic bash commands. User is working with a pre-configured Linux Server environment or Virtual Machine that is installed and has basic configuration. User has the ability to sudo on the targeted environment
