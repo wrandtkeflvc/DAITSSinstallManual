@@ -57,7 +57,7 @@ https://daitss.fcla.edu/content/documentation
 ## Install Guide 
 ### Configure Dependencies
 #### Update System
-[root@{system name}]# yum update
+> [root@{system name}]# yum update
 #### Update yum prior to installing
 [root@{system name}]# yum install ruby-1.9.3 ruby-devel-1.9.3
 #### Install Ruby and Ruby Development Files (specifically requires 1.9.3)
