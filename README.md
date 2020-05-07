@@ -429,18 +429,29 @@ As an example, silo.conf has the following contents
 
 
 
-  <VirtualHost *:80>
-    ServerName silo.example.com
-    KeepAlive Off
-    ProxyPreserveHost On
-    ProxyRequests Off
-    ProxyTimeout 14400
-    <Proxy balancer://silo_servers>
-       BalancerMember http://127.0.0.1:7000
-    </Proxy>
-    ProxyPass / balancer://silo_servers/
-    ProxyPassReverse / balancer://silo_servers/
-  </VirtualHost>
+>   <VirtualHost *:80>
+
+>     ServerName silo.example.com
+
+>     KeepAlive Off
+
+>     ProxyPreserveHost On
+
+>     ProxyRequests Off
+
+>     ProxyTimeout 14400
+
+>     <Proxy balancer://silo_servers>
+
+>        BalancerMember http://127.0.0.1:7000
+
+>     </Proxy>
+
+>     ProxyPass / balancer://silo_servers/
+
+>     ProxyPassReverse / balancer://silo_servers/
+
+>   </VirtualHost>
 
 
 This configuration causes all requests to the external interface using hostname silo.example.com to be forwarded the backend thin web server running on localhost, port 7000.
@@ -450,15 +461,15 @@ The apache configuration files for the remaining seven microservices will specif
 
 The thin configuration files are contained in the directory /opt/web-services/conf.d/thin/, one per microservice. The silo configuration file silo.yml has the contents:
 
-user: daitss
-group: daitss
-tag: silo
-environment: production
-pid: /var/run/daitss/thin/silo.pid
-log: /var/log/daitss/thin/silo.log
-port: 7000
-chdir: /opt/web-services/sites/silo-pool
-timeout: 300
+> user: daitss
+> group: daitss
+> tag: silo
+> environment: production
+> pid: /var/run/daitss/thin/silo.pid
+> log: /var/log/daitss/thin/silo.log
+> port: 7000
+> chdir: /opt/web-services/sites/silo-pool
+> timeout: 300
 
 
 The thin program will use this file to setup the environment for the silo microservice, and to start and stop the microservice. The directories specified must exist.
@@ -477,31 +488,31 @@ A very common error is to have a mismatch between the port in the apache and the
 
 
 #### Update httpd configuration file
-[root@{system name}]# vi /etc/httpd/conf/httpd.conf
+> [root@{system name}]# vi /etc/httpd/conf/httpd.conf
 
 
 #### Add the following lines
-NameVirtualHost *:80
-Include /opt/web-services/conf.d/*.conf
+> NameVirtualHost *:80
+> Include /opt/web-services/conf.d/*.conf
 
 
 #### Configure SELinux to allow Apache to connect to other HTTP Servers running locally
-[root@{system name}]# togglesebool httpd_can_network_connect
+> [root@{system name}]# togglesebool httpd_can_network_connect
 
 
 #### Update System Hosts file
-[root@{system name}]# /etc/hosts
+> [root@{system name}]# /etc/hosts
 
 
 #### Add the following lines
-127.0.0.1 silo.{system name}.local
-127.0.0.1 storagemaster.{system name}.local
-127.0.0.1 actionplan.{system name}.local
-127.0.0.1 core.{system name}.local
-127.0.0.1 describe.{system name}.local
-127.0.0.1 transform.{system name}.local
-127.0.0.1 viruscheck.{system name}.local
-127.0.0.1 xmlresolution.{system name}.local
+> 127.0.0.1 silo.{system name}.local
+> 127.0.0.1 storagemaster.{system name}.local
+> 127.0.0.1 actionplan.{system name}.local
+> 127.0.0.1 core.{system name}.local
+> 127.0.0.1 describe.{system name}.local
+> 127.0.0.1 transform.{system name}.local
+> 127.0.0.1 viruscheck.{system name}.local
+> 127.0.0.1 xmlresolution.{system name}.local
 
 
 
@@ -522,22 +533,22 @@ All of the commands in this section should be run as the daitss user, unless oth
 
 Create the file '/opt/web-services/conf.d/daitss-config.yml' and add the following lines:
 
-database:
-silo_db: postgres://daitss:daitss@localhost/silo_pool_db
-silo.{system name}.local:
-log_database_queries: false
-silo_temp_directory: /var/daitss/tmp
-log_syslog_facility: LOG_LOCAL0
+> database:
+> silo_db: postgres://daitss:daitss@localhost/silo_pool_db
+> silo.{system name}.local:
+> log_database_queries: false
+> silo_temp_directory: /var/daitss/tmp
+> log_syslog_facility: LOG_LOCAL0
 
 
 #### Setting up the Silo-Pool Database
-[daitss@{system name}]% cd /opt/web-services/sites/silo-pool
-[daitss@{system name}]% bundle exec tools/create-db --db-string postgres://daitss:daitss@localhost/silo_pool_db
+> [daitss@{system name}]% cd /opt/web-services/sites/silo-pool
+> [daitss@{system name}]% bundle exec tools/create-db --db-string postgres://daitss:daitss@localhost/silo_pool_db
 
 
 #### Add a new silo to the database
-[daitss@{system name}]% cd /opt/web-services/sites/silo-pool
-[daitss@{system name}]% bundle exec tools/add-silos --db-string postgres://daitss:daitss@localhost/silo_pool_db --server-name "silo.{system name}.local" /var/daitss/silo
+> [daitss@{system name}]% cd /opt/web-services/sites/silo-pool
+> [daitss@{system name}]% bundle exec tools/add-silos --db-string postgres://daitss:daitss@localhost/silo_pool_db --server-name "silo.{system name}.local" /var/daitss/silo
 
 ### Configuring the Silo-Pool Web Server
 
@@ -545,32 +556,43 @@ log_syslog_facility: LOG_LOCAL0
 #### Configure Apache
 Create the file '/opt/web-services/conf.d/silo.conf' with the following lines:
 
-<VirtualHost *:80>
-    ServerName silo.{system name}.local
-    KeepAlive Off
-    ProxyPreserveHost On
-    ProxyRequests Off
-    ProxyTimeout 14400
-    <Proxy balancer://silo_servers>
-        BalancerMember http://127.0.0.1:7000
-    </Proxy>
-    ProxyPass / balancer://silo_servers/
-    ProxyPassReverse / balancer://silo_servers/
-</VirtualHost>
+> <VirtualHost *:80>
+
+>     ServerName silo.{system name}.local
+
+>     KeepAlive Off
+
+>     ProxyPreserveHost On
+
+>     ProxyRequests Off
+
+>     ProxyTimeout 14400
+
+>     <Proxy balancer://silo_servers>
+
+>         BalancerMember http://127.0.0.1:7000
+
+>     </Proxy>
+
+>     ProxyPass / balancer://silo_servers/
+
+>     ProxyPassReverse / balancer://silo_servers/
+
+> </VirtualHost>
 
 
 #### Configure thin
 Create the file '/opt/web-services/conf.d/thin/silos.yml' with the following lines:
 
-user: daitss
-group: daitss
-tag: silo
-environment: production
-pid: /var/run/daitss/thin/silo.pid
-log: /var/log/daitss/thin/silo.log
-port: 7000
-chdir: /opt/web-services/sites/silo-pool
-timeout: 300
+> user: daitss
+> group: daitss
+> tag: silo
+> environment: production
+> pid: /var/run/daitss/thin/silo.pid
+> log: /var/log/daitss/thin/silo.log
+> port: 7000
+> chdir: /opt/web-services/sites/silo-pool
+> timeout: 300
 
 ## Configuring Storage Master Service
 
@@ -585,57 +607,68 @@ All of the commands in this section should be run as the daitss user, unless oth
 
 Open the file '/opt/web-services/conf.d/daitss-config.yml' and add the following line to the database section:
 
-storage_master_db: postgres://daitss:daitss@localhost/storage_master_db
+> storage_master_db: postgres://daitss:daitss@localhost/storage_master_db
 
 Add the following lines to the end of the file:
 
-defaults:
-required_pools: 1
-storagemaster.{system name}.local:
-log_syslog_facility: LOG_LOCAL0
-log_database_queries: false
+> defaults:
+> required_pools: 1
+> storagemaster.{system name}.local:
+> log_syslog_facility: LOG_LOCAL0
+> log_database_queries: false
 
 
 ### Setting up the Storage Master Database
 
 #### Initalize Storage Master database
-[daitss@{system name}]% cd /opt/web-services/sites/storage-master
-[daitss@{system name}]% bundle exec tools/create-db --db-string postgres://daitss:daitss@localhost/storage_master_db
+> [daitss@{system name}]% cd /opt/web-services/sites/storage-master
+> [daitss@{system name}]% bundle exec tools/create-db --db-string postgres://daitss:daitss@localhost/storage_master_db
 #### Add a New Silo-Pool to the Database
-[daitss@{system name}]% cd /opt/web-services/sites/storage-master
-[daitss@{system name}]% bundle exec tools/add-pools --db-string postgres://daitss:daitss@localhost/storage_master_db silo.{system name}.local
+> [daitss@{system name}]% cd /opt/web-services/sites/storage-master
+> [daitss@{system name}]% bundle exec tools/add-pools --db-string postgres://daitss:daitss@localhost/storage_master_db silo.{system name}.local
 
 
 ### Configuring the Storage Master Web Server
 #### Configure Apache
 Create the file '/opt/web-services/conf.d/storagemaster.conf' with the following lines:
 
-<VirtualHost *:80>
-    ServerName storagemaster.{system name}.local
-    KeepAlive Off
-    ProxyPreserveHost On
-    ProxyRequests Off
-    ProxyTimeout 14400
-    <Proxy balancer://storagemaster_servers>
-        BalancerMember http://127.0.0.1:7100
-    </Proxy>
-    ProxyPass / balancer://storagemaster_servers/
-    ProxyPassReverse / balancer://storagemaster_servers/
-</VirtualHost>
+> <VirtualHost *:80>
+
+>     ServerName storagemaster.{system name}.local
+
+>     KeepAlive Off
+
+>     ProxyPreserveHost On
+
+>     ProxyRequests Off
+
+>     ProxyTimeout 14400
+
+>     <Proxy balancer://storagemaster_servers>
+
+>         BalancerMember http://127.0.0.1:7100
+
+>     </Proxy>
+
+>     ProxyPass / balancer://storagemaster_servers/
+
+>     ProxyPassReverse / balancer://storagemaster_servers/
+
+> </VirtualHost>
 
 
 #### Configure thin
 Create the file '/opt/web-services/conf.d/thin/storagemaster.yml' with the following lines:
 
-user: daitss
-group: daitss
-tag: storagemaster
-environment: production
-pid: /var/run/daitss/thin/storagemaster.pid
-log: /var/log/daitss/thin/storagemaster.log
-port: 7100
-chdir: /opt/web-services/sites/storage-master
-timeout: 300
+> user: daitss
+> group: daitss
+> tag: storagemaster
+> environment: production
+> pid: /var/run/daitss/thin/storagemaster.pid
+> log: /var/log/daitss/thin/storagemaster.log
+> port: 7100
+> chdir: /opt/web-services/sites/storage-master
+> timeout: 300
 
 ## Configuring Actionplan Service
 
@@ -649,8 +682,8 @@ All of the commands in this section should be run as the daitss user, unless oth
 #### Setting up DAITSS configuration
 Open the file '/opt/web-services/conf.d/daitss-config.yml' and add the following lines to the end of the file:
 
-actionplan.{system name}.local:
-log_syslog_facility: LOG_LOCAL0
+> actionplan.{system name}.local:
+> log_syslog_facility: LOG_LOCAL0
 
 ### Configuring the Actionplan webserver
 
