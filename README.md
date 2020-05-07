@@ -2,7 +2,7 @@
 Page provides instructions for developers who are looking to install DAITSS on a Red Hat Enterprise Linux (RHEL) 6.x. This guide makes specific assumptions as follows:    User has a working knowledge of getting around Linux bash including switching users, running commands, navigating through directories, and basic bash commands. User is working with a pre-configured Linux Server environment or Virtual Machine that is installed and has basic configuration. User has the ability to sudo on the targeted environment
 
 
-DAITSS Dependencies
+# DAITSS Dependencies
 The Following dependencies are currently required to complete the DAITSS installation:
 
 RHEL 6.x (Install Guide written to RHEL 6.x)
@@ -37,73 +37,73 @@ Note: Typically Git and GCC/GCC-C++ will already be up-to-date on most installat
 
 
 
-Original Installation Guide
+## Original Installation Guide
 https://daitss.pubwiki.fcla.edu/wiki/index.php/DAITSS_2_Software_Installation_Guide
 
-DAITSS Documentation
+## DAITSS Documentation
 https://daitss.fcla.edu/content/documentation
 
 
 
-Step-by-step Install Guide
-Before You Begin
+# Step-by-step Install Guide
+## Before You Begin
 Requires Red Hat Enterprise Linux (RHEL) 6.9 or CentOS 6.x, instructions written assuming using RHEL 6.9. Instructions may vary somewhat for a different distro
 Install Linux choice with desktop minimal installation as a minimum requirement
 Create daitss user that is a sudoer
 partition created and mounted @ /var/daitss/silo, owned by daitss user (this step is optional on a local VM and may not even be critical on a server environment, is dictated mostly by hardware requirements)
-Things to know
+## Things to know
 System name referenced as '{system name}' in install instructions, replace this reference with your system name (i.e. - root@{system name} should be root@foo if your system name is foo)
 The commands will be prefaced by the user they should be executed with, so be aware of this (if a command is prefaced by 'root@system' then the command should be run by root)
 References to yum are referring to the Red Hat Package Manager yum. If installing on a linux distribution that does not use yum, obtain the appropriate RPM packages using your package manager of choice
 Commands will be followed by a description and any comments/notes
-Install Guide 
-Configure Dependencies
-Update System
+## Install Guide 
+### Configure Dependencies
+####  Update System
 [root@{system name}]# yum update
-Update yum prior to installing
+####  Update yum prior to installing
 [root@{system name}]# yum install ruby-1.9.3 ruby-devel-1.9.3
-Install Ruby and Ruby Development Files (specifically requires 1.9.3)
+####  Install Ruby and Ruby Development Files (specifically requires 1.9.3)
 [root@{system name}]# yum install ruby-rdoc
-Necessary to avoid RDoc documentation errors when installing ruby gems
+####  Necessary to avoid RDoc documentation errors when installing ruby gems
 [root@{system name}]# yum install rubygems
 [root@{system name}]# gem update --system
 
 
-Install ruby gems and update it
+####  Install ruby gems and update it
 [root@{system name}]# gem update --system 1.8.11
-Needed for a deprecated method 'source_index'
+####  Needed for a deprecated method 'source_index'
 [root@{system name}]# yum install git
-Install git (optional step if not already installed)
+####  Install git (optional step if not already installed)
 [root@{system name}]# yum install java-1.7.0-openjdk java-1.7.0-openjdk-devel
-Install Java 1.7 (latest revision of 1.7, should be 1.7.0_45 or later) open JDK
+####  Install Java 1.7 (latest revision of 1.7, should be 1.7.0_45 or later) open JDK
 [root@{system name}]# rpm -ivh https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-6-x86_64/pgdg-redhat96-9.6-3.noarch.rpm
 [root@{system name}]# yum install postgresql96 postgresql96-contrib postgresql96-server postgresql96-devel
 
 
-Download RPM and Install Postgresql 9.x
+####  Download RPM and Install Postgresql 9.x
 Note
 
 Postgresql 8.4 should be sufficient, most likely a version of postgres will already be installed on your distro that will be sufficient
 
 
 
-Install GCC (if not already installed)
+####  Install GCC (if not already installed)
 [root@{system name}]# yum install gcc gcc-c++
 
 
-Install LibXML
+####  Install LibXML
 [root@{system name}]# yum install libxml2-devel
 
 
-Install LibXSLT
+####  Install LibXSLT
 [root@{system name}]# yum install libxslt-devel
 
 
-Install Libcurl
+####  Install Libcurl
 [root@{system name}]# yum install libcurl-devel
 
 
-Install ClamAV
+####  Install ClamAV
 [root@{system name}]# rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
 [root@{system name}]# yum install clamav clamd
 Note
@@ -117,19 +117,19 @@ Install Syslog
 [root@{system name}]# yum install rsyslog
 
 
-Install crontabs
+####  Install crontabs
 [root@{system name}]# yum install crontabs
 
 
-Install Squid
+####  Install Squid
 [root@{system name}]# yum install squid
 
 
-Install Apache Dev Libraries
+####  Install Apache Dev Libraries
 [root@{system name}]# yum install httpd-devel
 
 
-Install Preservation Tools
+####  Install Preservation Tools
 For 64-bit machines:
 
 [root@{system name}]# rpm -Uvh http://repository.it4i.cz/mirrors/repoforge/redhat/el6/en/x86_64/rpmforge/RPMS/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
@@ -144,18 +144,18 @@ These links are different from the daitss install instructions posted on the wik
 
 
 
-Install Preservation Tools
+####  Install Preservation Tools
 [root@{system name}]# yum install ffmpeg
 [root@{system name}]# yum install mencoder
 [root@{system name}]# yum install libquicktime
 
 
-Java Configuration
-Open .bashrc file to add JAVA_HOME to system path
+###  Java Configuration
+####  Open .bashrc file to add JAVA_HOME to system path
 [root@{system name}]# vi /home/daitss/.bashrc
 
 
-Add the following lines at the end of the file
+####  Add the following lines at the end of the file
 export JAVA_HOME=/usr/java/latest (/usr/java/latest is a symbolic link to the actual location of the JAVA JDK installed on the system)
 export PATH=$JAVA_HOME/bin:$PATH
 Note
@@ -164,7 +164,7 @@ It is important to ensure /usr/java/latest is properly setup as a symbolic link 
 
 
 
-Create Symbolic Link for Latest Java Installation
+####  Create Symbolic Link for Latest Java Installation
 [root@{system name} ~]# ln -s /etc/alternatives/java_sdk /usr/java/latest
 Note
 
@@ -172,13 +172,13 @@ Use desired Java Installation path in lieu of /etc/alternatives/java_sdk if java
 
 
 
-Confirm Symbolic Link is Working
+####  Confirm Symbolic Link is Working
 [root@{system name} ~]# ls -l /usr/java/latest ~> lrwxrwxrwx. 1 root root 26 May 14 2012 /usr/java/latest -> /etc/alternatives/java_sdk
 
 
-PostgreSQL Configuration
+###  PostgreSQL Configuration
 
-Init Postgres database cluster
+####  Init Postgres database cluster
 [root@{system name}]# service postgresql-xx initdb
 Note
 
@@ -186,7 +186,7 @@ xx represents postgres major/minor version, so if you have postgres 9.6 installe
 
 
 
-Update Postgres Host-Based Authentication Configuration File
+####  Update Postgres Host-Based Authentication Configuration File
 [root@system]# vi /var/lib/pgsql/x.x/data/pg_hba.conf
 Note
 
