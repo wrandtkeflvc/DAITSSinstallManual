@@ -661,13 +661,21 @@ Create the file '/opt/web-services/conf.d/storagemaster.conf' with the following
 Create the file '/opt/web-services/conf.d/thin/storagemaster.yml' with the following lines:
 
 > user: daitss
+
 > group: daitss
+
 > tag: storagemaster
+
 > environment: production
+
 > pid: /var/run/daitss/thin/storagemaster.pid
+
 > log: /var/log/daitss/thin/storagemaster.log
+
 > port: 7100
+
 > chdir: /opt/web-services/sites/storage-master
+
 > timeout: 300
 
 ## Configuring Actionplan Service
@@ -683,6 +691,7 @@ All of the commands in this section should be run as the daitss user, unless oth
 Open the file '/opt/web-services/conf.d/daitss-config.yml' and add the following lines to the end of the file:
 
 > actionplan.{system name}.local:
+
 > log_syslog_facility: LOG_LOCAL0
 
 ### Configuring the Actionplan webserver
@@ -691,18 +700,29 @@ Open the file '/opt/web-services/conf.d/daitss-config.yml' and add the following
 #### Configure Apache
 Create the file '/opt/web-services/conf.d/actionplan.conf' with the following lines:
 
-<VirtualHost *:80>
-    ServerName actionplan.{system name}.local
-    KeepAlive Off
-    ProxyPreserveHost On
-    ProxyRequests Off
-    ProxyTimeout 14400
-    <Proxy balancer://actionplan_servers>
-        BalancerMember http://127.0.0.1:7200
-    </Proxy>
-    ProxyPass / balancer://actionplan_servers/
-    ProxyPassReverse / balancer://actionplan_servers/
-</VirtualHost>
+> <VirtualHost *:80>
+
+>     ServerName actionplan.{system name}.local
+
+>     KeepAlive Off
+
+>     ProxyPreserveHost On
+
+>     ProxyRequests Off
+
+>     ProxyTimeout 14400
+
+>     <Proxy balancer://actionplan_servers>
+
+>         BalancerMember http://127.0.0.1:7200
+
+>     </Proxy>
+
+>     ProxyPass / balancer://actionplan_servers/
+
+>     ProxyPassReverse / balancer://actionplan_servers/
+
+> </VirtualHost>
 
 
 
@@ -710,15 +730,23 @@ Create the file '/opt/web-services/conf.d/actionplan.conf' with the following li
 #### Configure thin
 Create the file '/opt/web-services/conf.d/thin/actionplan.yml' with the following lines:
 
-user: daitss
-group: daitss
-tag: actionplan
-environment: production
-pid: /var/run/daitss/thin/actionplan.pid
-log: /var/log/daitss/thin/actionplan.log
-port: 7200
-chdir: /opt/web-services/sites/actionplan
-timeout: 300
+> user: daitss
+
+> group: daitss
+
+> tag: actionplan
+
+> environment: production
+
+> pid: /var/run/daitss/thin/actionplan.pid
+
+> log: /var/log/daitss/thin/actionplan.log
+
+> port: 7200
+
+> chdir: /opt/web-services/sites/actionplan
+
+> timeout: 300
 
 
 
@@ -732,8 +760,9 @@ All of the commands in this section should be run as the daitss user, unless oth
 
 
 #### Creating session-secret file
-[daitss@{system name}]% cd /opt/web-services/conf.d/
-[daitss@{system name}]% touch session-secret
+> [daitss@{system name}]% cd /opt/web-services/conf.d/
+
+> [daitss@{system name}]% touch session-secret
 
 
 ### Setting up DAITSS Configuration
@@ -741,7 +770,7 @@ All of the commands in this section should be run as the daitss user, unless oth
 
 Open the file '/opt/web-services/conf.d/daitss-config.yml' and add the following line to the database section:
 
-daitss_db: postgres://daitss:daitss@localhost/daitss
+> daitss_db: postgres://daitss:daitss@localhost/daitss
 
 
 Now, add the following lines to the end of the file:
@@ -795,19 +824,20 @@ core.{system name}.local:
 
 To set these variables, open the file '/home/daitss/.bashrc' and add these lines:
 
-export DAITSS_CONFIG=/opt/web-services/conf.d/daitss-config.yml
-export VIRTUAL_HOSTNAME=core.{system name}.local
+> export DAITSS_CONFIG=/opt/web-services/conf.d/daitss-config.yml
+
+> export VIRTUAL_HOSTNAME=core.{system name}.local
 
 
 
 #### Load these changes into our current shell
-[daitss@{system name}]% source /home/daitss/.bashrc
+> [daitss@{system name}]% source /home/daitss/.bashrc
 
 
 
 #### Configuring Core Service Database
-[daitss@{system name}]% cd /opt/web-services/sites/core
-[daitss@{system name}]% bundle exec ./bin/init
+> [daitss@{system name}]% cd /opt/web-services/sites/core
+> [daitss@{system name}]% bundle exec ./bin/init
 
 
 ### Configuring the Core Web Server
@@ -818,18 +848,29 @@ export VIRTUAL_HOSTNAME=core.{system name}.local
 
 Create the file '/opt/web-services/conf.d/core.conf' with the following lines:
 
-<VirtualHost *:80>
-    ServerName core.{system name}.local
-    KeepAlive Off
-    ProxyPreserveHost On
-    ProxyRequests Off
-    ProxyTimeout 14400
-    <Proxy balancer://core_servers>
-        BalancerMember http://127.0.0.1:7300
-    </Proxy>
-    ProxyPass / balancer://core_servers/
-    ProxyPassReverse / balancer://core_servers/
-</VirtualHost>
+> <VirtualHost *:80>
+
+>     ServerName core.{system name}.local
+
+>     KeepAlive Off
+
+>     ProxyPreserveHost On
+
+>     ProxyRequests Off
+
+>     ProxyTimeout 14400
+
+>     <Proxy balancer://core_servers>
+
+>         BalancerMember http://127.0.0.1:7300
+
+>     </Proxy>
+
+>     ProxyPass / balancer://core_servers/
+
+>     ProxyPassReverse / balancer://core_servers/
+
+> </VirtualHost>
 
 
 
@@ -837,15 +878,23 @@ Create the file '/opt/web-services/conf.d/core.conf' with the following lines:
 #### Configure thin
 Create the file '/opt/web-services/conf.d/thin/core.yml' with the following lines:
 
-user: daitss
-group: daitss
-tag: core
-environment: production
-pid: /var/run/daitss/thin/core.pid
-log: /var/log/daitss/thin/core.log
-port: 7300
-chdir: /opt/web-services/sites/core
-timeout: 300
+> user: daitss
+
+> group: daitss
+
+> tag: core
+
+> environment: production
+
+> pid: /var/run/daitss/thin/core.pid
+
+> log: /var/log/daitss/thin/core.log
+
+> port: 7300
+
+> chdir: /opt/web-services/sites/core
+
+> timeout: 300
 
 
 
@@ -859,14 +908,19 @@ All of the commands in this section should be run as the daitss user, unless oth
 ### Setting up DAITSS Configuration
 Open the file '/opt/web-services/conf.d/daitss-config.yml' and add the following lines to the end of the file:
 
-describe.{system name}.local:
-    log_syslog_facility:         LOG_LOCAL0
-    max_pdf_bitstreams: 1000
+> describe.{system name}.local:
+
+>     log_syslog_facility:         LOG_LOCAL0
+
+>     max_pdf_bitstreams: 1000
  
-    jvm_options:
-      - -Xmx256m
-      - -Dhttp.proxyHost=localhost
-      - -Dhttp.proxyPort=3128
+>     jvm_options:
+
+>       - -Xmx256m
+
+>       - -Dhttp.proxyHost=localhost
+
+>       - -Dhttp.proxyPort=3128
 
 
 
@@ -877,32 +931,51 @@ describe.{system name}.local:
 #### Configure Apache
 Create the file '/opt/web-services/conf.d/describe.conf' with the following lines:
 
-<VirtualHost *:80>
-    ServerName describe.{system name}.local
-    KeepAlive Off
-    ProxyPreserveHost On
-    ProxyRequests Off
-    ProxyTimeout 14400
-    <Proxy balancer://describe_servers>
-        BalancerMember http://127.0.0.1:7400
-    </Proxy>
-    ProxyPass / balancer://describe_servers/
-    ProxyPassReverse / balancer://describe_servers/
-</VirtualHost>
+> <VirtualHost *:80>
+
+>     ServerName describe.{system name}.local
+
+>     KeepAlive Off
+
+>     ProxyPreserveHost On
+
+>     ProxyRequests Off
+
+>     ProxyTimeout 14400
+
+>     <Proxy balancer://describe_servers>
+
+>         BalancerMember http://127.0.0.1:7400
+
+>     </Proxy>
+
+>     ProxyPass / balancer://describe_servers/
+
+>     ProxyPassReverse / balancer://describe_servers/
+
+> </VirtualHost>
 
 
 #### Configure thin
 Create the file '/opt/web-services/conf.d/thin/describe.yml' with the following lines:
 
-user: daitss
-group: daitss
-tag: describe
-environment: production
-pid: /var/run/daitss/thin/describe.pid
-log: /var/log/daitss/thin/describe.log
-port: 7400
-chdir: /opt/web-services/sites/describe
-timeout: 300
+> user: daitss
+
+> group: daitss
+
+> tag: describe
+
+> environment: production
+
+> pid: /var/run/daitss/thin/describe.pid
+
+> log: /var/log/daitss/thin/describe.log
+
+> port: 7400
+
+> chdir: /opt/web-services/sites/describe
+
+> timeout: 300
 
 
 ## Configuring Transformation Service
@@ -917,55 +990,90 @@ All of the commands in this section should be run as the daitss user, unless oth
 
 Open the file '/opt/web-services/conf.d/daitss-config.yml' and add the following lines to the end of the file:
 
-transform.{system name}.local:
-    log_syslog_facility:         LOG_LOCAL0
-    avi_norm:
-       instruction:            /usr/bin/mencoder $INPUT_FILE$ -oac pcm -ovc lavc -lavcopts vcodec=mjpeg -o $OUTPUT_FILE$
-       extension:              .avi
-       identifier:             avi/norm/v0.1.1
-       software:               MEncoder SVN-r28728-snapshot-4.1.2 (C) 2000-2009 MPlayer Team
-    wave_norm:
-       instruction:            /usr/bin/ffmpeg -i $INPUT_FILE$ -sameq -acodec pcm_s16le -y $OUTPUT_FILE$
-       extension:              .wav
-       identifier:             wave/norm/v0.1.1
-       software:               FFmpeg version , Copyright (c) 2000-2009 Fabrice Bellard, et al.
-    mov_norm:
-       instruction:            /usr/bin/lqt_transcode -ac rawaudio -vc mjpa $INPUT_FILE$ $OUTPUT_FILE$
-       extension:              .mov
-       identifier:             mov/norm/v0.1.1
-       software:               libquicktime 1.1.5, depends_lib gettext, jpeg, libiconv, libpng, zlib, ffmpeg, faac, faad2, libvorbis, libogg, lame
+> transform.{system name}.local:
+
+>     log_syslog_facility:         LOG_LOCAL0
+
+>     avi_norm:
+
+>        instruction:            /usr/bin/mencoder $INPUT_FILE$ -oac pcm -ovc lavc -lavcopts vcodec=mjpeg -o $OUTPUT_FILE$
+
+>        extension:              .avi
+
+>        identifier:             avi/norm/v0.1.1
+
+>        software:               MEncoder SVN-r28728-snapshot-4.1.2 (C) 2000-2009 MPlayer Team
+
+>     wave_norm:
+
+>        instruction:            /usr/bin/ffmpeg -i $INPUT_FILE$ -sameq -acodec pcm_s16le -y $OUTPUT_FILE$
+
+>        extension:              .wav
+
+>        identifier:             wave/norm/v0.1.1
+
+>        software:               FFmpeg version , Copyright (c) 2000-2009 Fabrice Bellard, et al.
+
+>     mov_norm:
+
+>        instruction:            /usr/bin/lqt_transcode -ac rawaudio -vc mjpa $INPUT_FILE$ $OUTPUT_FILE$
+
+>        extension:              .mov
+
+>        identifier:             mov/norm/v0.1.1
+
+>        software:               libquicktime 1.1.5, depends_lib gettext, jpeg, libiconv, libpng, zlib, ffmpeg, faac, faad2, libvorbis, libogg, lame
 
 
 ### Configuring the Transformation Web Server
 #### Configure Apache
 Create the file '/opt/web-services/conf.d/transform.conf' with the following lines:
 
-<VirtualHost *:80>
-    ServerName transform.shades.local
-    KeepAlive Off
-    ProxyPreserveHost On
-    ProxyRequests Off
-    ProxyTimeout 14400
-    <Proxy balancer://transform_servers>
-        BalancerMember http://127.0.0.1:7500
-    </Proxy>
-    ProxyPass / balancer://transform_servers/
-    ProxyPassReverse / balancer://transform_servers/
-</VirtualHost>
+> <VirtualHost *:80>
+
+>     ServerName transform.shades.local
+
+>     KeepAlive Off
+
+>     ProxyPreserveHost On
+
+>     ProxyRequests Off
+
+>     ProxyTimeout 14400
+
+>     <Proxy balancer://transform_servers>
+
+>         BalancerMember http://127.0.0.1:7500
+
+>     </Proxy>
+
+>     ProxyPass / balancer://transform_servers/
+
+>     ProxyPassReverse / balancer://transform_servers/
+
+> </VirtualHost>
 
 
 #### Configure thin
 Create the file '/opt/web-services/conf.d/thin/transform.yml' with the following lines:
 
-user: daitss
-group: daitss
-tag: transform
-environment: production
-pid: /var/run/daitss/thin/transform.pid
-log: /var/log/daitss/thin/transform.log
-port: 7500
-chdir: /opt/web-services/sites/transform
-timeout: 300
+> user: daitss
+
+> group: daitss
+
+> tag: transform
+
+> environment: production
+
+> pid: /var/run/daitss/thin/transform.pid
+
+> log: /var/log/daitss/thin/transform.log
+
+> port: 7500
+
+> chdir: /opt/web-services/sites/transform
+
+> timeout: 300
 
 
 
@@ -979,8 +1087,9 @@ All of the commands in this section should be run as the DAITSS user, unless oth
 ### Setting up DAITSS configuration
 Open the file '/opt/web-services/conf.d/daitss-config.yml' and add the following lines to the end of the file:
 
-viruscheck.{system name}.local:
-    log_syslog_facility:         LOG_LOCAL0
+> viruscheck.{system name}.local:
+
+>     log_syslog_facility:         LOG_LOCAL0
 
 
 ### Configuring ClamAV
@@ -989,23 +1098,23 @@ viruscheck.{system name}.local:
 As root, open the file '/etc/selinux/config'.
 
 #### Replace the line
-SELINUX=enforcing
+> SELINUX=enforcing
 
 
 
 #### with the line
-SELINUX=permissive
+> SELINUX=permissive
 
 
 Save and close the file. The changes will take effect on next reboot. To set SELINUX to permissive now, type:
 
-[root@{system name}]# setenforce 0
+> [root@{system name}]# setenforce 0
 
 
 ### Configure the clamd daemon to run as root
 To do so, open the file '/etc/clamd.conf' and remove the following line:
 
-User clamav
+> User clamav
 
 
 ### Configuring the Viruscheck Web Server
@@ -1014,32 +1123,51 @@ User clamav
 #### Configure Apache
 Create the file '/opt/web-services/conf.d/viruscheck.conf' with the following lines:
 
-<VirtualHost *:80>
-    ServerName viruscheck.{system name}.local
-    KeepAlive Off
-    ProxyPreserveHost On
-    ProxyRequests Off
-    ProxyTimeout 14400
-    <Proxy balancer://viruscheck_servers>
-        BalancerMember http://127.0.0.1:7600
-    </Proxy>
-    ProxyPass / balancer://viruscheck_servers/
-    ProxyPassReverse / balancer://viruscheck_servers/
-</VirtualHost>
+> <VirtualHost *:80>
+
+>     ServerName viruscheck.{system name}.local
+
+>     KeepAlive Off
+
+>     ProxyPreserveHost On
+
+>     ProxyRequests Off
+
+>     ProxyTimeout 14400
+
+>     <Proxy balancer://viruscheck_servers>
+
+>         BalancerMember http://127.0.0.1:7600
+
+>     </Proxy>
+
+>     ProxyPass / balancer://viruscheck_servers/
+
+>     ProxyPassReverse / balancer://viruscheck_servers/
+
+> </VirtualHost>
 
 
 #### Configure thin
 Create the file '/opt/web-services/conf.d/thin/viruscheck.yml' with the following lines:
 
-user: daitss
-group: daitss
-tag: viruscheck
-environment: production
-pid: /var/run/daitss/thin/viruscheck.pid
-log: /var/log/daitss/thin/viruscheck.log
-port: 7600
-chdir: /opt/web-services/sites/viruscheck
-timeout: 300
+> user: daitss
+
+> group: daitss
+
+> tag: viruscheck
+
+> environment: production
+
+> pid: /var/run/daitss/thin/viruscheck.pid
+
+> log: /var/log/daitss/thin/viruscheck.log
+
+> port: 7600
+
+> chdir: /opt/web-services/sites/viruscheck
+
+> timeout: 300
 
 
 ## Configuring XML Resolution service
@@ -1051,10 +1179,13 @@ All of the commands in this section should be run as the daitss user, unless oth
 ### Setting up DAITSS configuration
 Open the file '/opt/web-services/conf.d/daitss-config.yml' and add the following lines to the end of the file:
 
-xmlresolution.{system name}.local:
-    log_syslog_facility:        LOG_LOCAL0
-    data_root:                  /var/daitss/xmlresolution
-    resolver_proxy:             localhost:3128
+> xmlresolution.{system name}.local:
+
+>     log_syslog_facility:        LOG_LOCAL0
+
+>     data_root:                  /var/daitss/xmlresolution
+
+>     resolver_proxy:             localhost:3128
 
 
 ### Configuring the XML Resolution Web Server
@@ -1063,32 +1194,51 @@ xmlresolution.{system name}.local:
 #### Configure Apache
 Create the file '/opt/web-services/conf.d/xmlresolution.conf' with the following lines:
 
-<VirtualHost *:80>
-    ServerName xmlresolution.{system name}.local
-    KeepAlive Off
-    ProxyPreserveHost On
-    ProxyRequests Off
-    ProxyTimeout 14400
-    <Proxy balancer://xmlresolution_servers>
-        BalancerMember http://127.0.0.1:7700
-    </Proxy>
-    ProxyPass / balancer://xmlresolution_servers/
-    ProxyPassReverse / balancer://xmlresolution_servers/
-</VirtualHost>
+> <VirtualHost *:80>
+
+>     ServerName xmlresolution.{system name}.local
+
+>     KeepAlive Off
+
+>     ProxyPreserveHost On
+
+>     ProxyRequests Off
+
+>     ProxyTimeout 14400
+
+>     <Proxy balancer://xmlresolution_servers>
+
+>         BalancerMember http://127.0.0.1:7700
+
+>     </Proxy>
+
+>     ProxyPass / balancer://xmlresolution_servers/
+
+>     ProxyPassReverse / balancer://xmlresolution_servers/
+
+> </VirtualHost>
 
 
 #### Configure thin
 Create the file '/opt/web-services/conf.d/thin/xmlresolution.yml' with the following lines:
 
-user: daitss
-group: daitss
-tag: xmlresolution
-environment: production
-pid: /var/run/daitss/thin/xmlresolution.pid
-log: /var/log/daitss/thin/xmlresolution.log
-port: 7700
-chdir: /opt/web-services/sites/xmlresolution
-timeout: 300
+> user: daitss
+
+> group: daitss
+
+> tag: xmlresolution
+
+> environment: production
+
+> pid: /var/run/daitss/thin/xmlresolution.pid
+
+> log: /var/log/daitss/thin/xmlresolution.log
+
+> port: 7700
+
+> chdir: /opt/web-services/sites/xmlresolution
+
+> timeout: 300
 
 
 ## Configuring Fixity Checking
@@ -1101,34 +1251,43 @@ All of the commands in this section should be run as the daitss user, unless oth
 ### Setting up DAITSS configuration
 Open the file '/opt/web-services/conf.d/daitss-config.yml' and add the following lines to the defaults section:
 
-fixity_expired_days:         7
-fixity_stale_days:           5
+> fixity_expired_days:         7
+
+> fixity_stale_days:           5
 
 
 Now add the following lines to the end of the file:
 
-disk-fixity:
-   log_syslog_facility:         LOG_LOCAL0
-   hostname:                    silo.{system name}.local
-   pid_directory:               /var/run/daitss
-   fresh_enough:                1
+> disk-fixity:
+
+>    log_syslog_facility:         LOG_LOCAL0
+
+>    hostname:                    silo.{system name}.local
+
+>    pid_directory:               /var/run/daitss
+
+>    fresh_enough:                1
  
-collect-fixities:
-   log_syslog_facility:         LOG_LOCAL0
-   server_address:              storagemaster.{system name}.local
-   pid_directory:               /var/run/daitss
+> collect-fixities:
+
+>    log_syslog_facility:         LOG_LOCAL0
+
+>    server_address:              storagemaster.{system name}.local
+
+>    pid_directory:               /var/run/daitss
 
 
 ### Adding Fixity Checking Entries to crontab
 To add entries to start the fixity checking scripts to the system crontab, Type:
 
-[daitss@{system name}]% crontab -e
+> [daitss@{system name}]% crontab -e
 
 
 In the editor window, add the following lines:
 
-1 1 * * * DAITSS_CONFIG=/opt/web-services/conf.d/daitss-config.yml BUNDLE_GEMFILE=/opt/web-services/sites/silo-pool/Gemfile bundle exec /opt/web-services/sites/silo-pool/tools/disk-fixity &> /dev/null
-2 2 * * * DAITSS_CONFIG=/opt/web-services/conf.d/daitss-config.yml BUNDLE_GEMFILE=/opt/web-services/sites/storage-master/Gemfile bundle exec /opt/web-services/sites/storage-master/tools/collect-fixities &> /dev/null
+> 1 1 * * * DAITSS_CONFIG=/opt/web-services/conf.d/daitss-config.yml BUNDLE_GEMFILE=/opt/web-services/sites/silo-pool/Gemfile bundle exec /opt/web-services/sites/silo-pool/tools/disk-fixity &> /dev/null
+
+> 2 2 * * * DAITSS_CONFIG=/opt/web-services/conf.d/daitss-config.yml BUNDLE_GEMFILE=/opt/web-services/sites/storage-master/Gemfile bundle exec /opt/web-services/sites/storage-master/tools/collect-fixities &> /dev/null
 
 
 ## Configuring Services to run on startup
@@ -1140,28 +1299,35 @@ install the DAITSS rc script and configure it to start on boot
 Configuring DAITSS dependencies to start on boot
 To ensure that postgresql, clamd, httpd, squid, and rsyslog are selected to run on startup.Type:
 
-[root@{system name}]#chkconfig clamd on
-[root@{system name}]#chkconfig httpd on
-[root@{system name}]#chkconfig postgresql-9.2 on
-[root@{system name}]#chkconfig squid on
-[root@{system name}]#chkconfig rsyslog on
+> [root@{system name}]#chkconfig clamd on
+
+> [root@{system name}]#chkconfig httpd on
+
+> [root@{system name}]#chkconfig postgresql-9.2 on
+
+> [root@{system name}]#chkconfig squid on
+
+> [root@{system name}]#chkconfig rsyslog on
 
 
 ### Installing and configuring the DAITSS rc script
 
 The first step is to copy the DAITSS rc script into '/etc/init.d:'
 
-[root@{system name}]# cp /opt/web-services/sites/core/bin/init.d/oss/daitss /etc/init.d
+> [root@{system name}]# cp /opt/web-services/sites/core/bin/init.d/oss/daitss /etc/init.d
 
 
 ### Configure the System to run the RC script on boot
-[root@{system name}]# cd /etc/init.d
-[root@{system name}]# chkconfig --add daitss
-[root@{system name}]# chkconfig daitss on
+> [root@{system name}]# cd /etc/init.d
+
+> [root@{system name}]# chkconfig --add daitss
+
+> [root@{system name}]# chkconfig daitss on
 
 
 ### Add sudo Privileges to the daitss user
 Open the file '/etc/sudoers' and add the following lines:
 
-daitss  ALL=(ALL)      ALL
-That's it! This concludes the installation.
+> daitss  ALL=(ALL)      ALL
+
+> That's it! This concludes the installation.
