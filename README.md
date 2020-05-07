@@ -64,6 +64,7 @@ https://daitss.fcla.edu/content/documentation
 > [root@{system name}]# yum install ruby-rdoc
 #### Necessary to avoid RDoc documentation errors when installing ruby gems
 > [root@{system name}]# yum install rubygems
+
 > [root@{system name}]# gem update --system
 
 
@@ -75,6 +76,7 @@ https://daitss.fcla.edu/content/documentation
 > [root@{system name}]# yum install java-1.7.0-openjdk java-1.7.0-openjdk-devel
 #### Install Java 1.7 (latest revision of 1.7, should be 1.7.0_45 or later) open JDK
 > [root@{system name}]# rpm -ivh https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-6-x86_64/pgdg-redhat96-9.6-3.noarch.rpm
+
 > [root@{system name}]# yum install postgresql96 postgresql96-contrib postgresql96-server postgresql96-devel
 
 
@@ -103,6 +105,7 @@ Postgresql 8.4 should be sufficient, most likely a version of postgres will alre
 
 #### Install ClamAV
 > [root@{system name}]# rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
+
 > [root@{system name}]# yum install clamav clamd
 Note
 
@@ -144,7 +147,9 @@ These links are different from the daitss install instructions posted on the wik
 
 #### Install Preservation Tools
 > [root@{system name}]# yum install ffmpeg
+
 > [root@{system name}]# yum install mencoder
+
 > [root@{system name}]# yum install libquicktime
 
 
@@ -224,24 +229,31 @@ Replace 9.x with locally used version (i.e. - if using Postgresql 9.6, use postg
 
 #### Create a Postgres database user.
 > [root@{system name}]# su - postgres
+
 > [postgres@{system name}]% createuser daitss
 
 
 #### Start Postgres client session
 > [postgres@{system name}]% psql
+
 > postgres=# ALTER USER daitss WITH PASSWORD 'daitss';
+
 > postgres=# \q;
 
 
 #### Create Databases
 > [postgres@{system name}]% createdb daitss
+
 > [postgres@{system name}]% createdb silo_pool_db
+
 > [postgres@{system name}]% createdb storage_master_db
 
 
 #### Update bashrc
 > [postgres@{system name}]% exit
+
 > [root@{system name}]# sudo su - daitss
+
 > [daitss@{system name}]% vi /home/daitss/.bashrc
 
 
@@ -253,6 +265,7 @@ Replace 9.x with locally used version (i.e. - if using Postgresql 9.6, use postg
 
 #### Install bundler and sys-proctable (0.9.0 linux x86-64)
 > [root@{system name}]# gem install bundler
+
 > [root@{system name}]# gem install sys-proctable --version 0.9.0 --platform x86-64-linux
 
 
@@ -260,20 +273,33 @@ Replace 9.x with locally used version (i.e. - if using Postgresql 9.6, use postg
 
 #### Create DAITSS directories
 > [root@{system name}]# install -d -o daitss -g daitss -m 755 /opt/web-services/sites
+
 > [root@{system name}]# install -d -o daitss -g daitss -m 755 /opt/web-services/conf.d/thin
+
 > [root@{system name}]# install -d -o daitss -g daitss -m 755 /var/daitss/data
+
 > [root@{system name}]# install -d -o daitss -g daitss -m 755 /var/daitss/silo
+
 > [root@{system name}]# install -d -o daitss -g daitss -m 755 /var/daitss/xmlresolution/collections
+
 > [root@{system name}]# install -d -o daitss -g daitss -m 755 /var/daitss/xmlresolution/schemas
+
 > [root@{system name}]# install -d -o daitss -g daitss -m 755 /var/log/daitss/web-services
+
 > [root@{system name}]# install -d -o daitss -g daitss -m 755 /var/log/daitss/daemons
+
 > [root@{system name}]# install -d -o daitss -g daitss -m 755 /var/log/daitss/submit
+
 > [root@{system name}]# install -d -o daitss -g daitss -m 755 /var/log/daitss/thin
+
 > [root@{system name}]# install -d -o daitss -g daitss -m 755 /var/run/daitss
+
 > [root@{system name}]# install -d -o daitss -g daitss -m 775 /var/daitss/tmp
+
 ### Install DAITSS Core Service
 #### Get Source
 > [daitss@{system name}]% cd /opt/web-services/sites
+
 > [daitss@{system name}]% git clone git://github.com/daitss/core.git
 
 
@@ -310,44 +336,52 @@ Directory may vary depending on ruby gems location on your machine
 
 #### Get Source
 > [daitss@{system name}]% cd /opt/web-services/sites
+
 > [daitss@{system name}]% git clone git://github.com/daitss/actionplan.git
 
 
 #### Build dependencies
 > [daitss@{system name}]% cd actionplan
+
 > [daitss@{system name}]% bundle install --path bundle
 
 
 ### Install DAITSS Description service
 #### Get Source
 > [daitss@{system name}]% cd /opt/web-services/sites
+
 > [daitss@{system name}]% git clone git://github.com/daitss/describe.git
 
 
 #### Build dependencies
 > [daitss@{system name}]% cd describe
+
 > [daitss@{system name}]% bundle install --path bundle
 
 
 ### Install DAITSS Silo-Pool service
 #### Get Source
 > [daitss@{system name}]% cd /opt/web-services/sites
+
 > [daitss@{system name}]% git clone git://github.com/daitss/silo-pool.git
 
 
 #### Build dependencies
 > [daitss@{system name}]% cd silo-pool
+
 > [daitss@{system name}]% bundle install --path bundle
 
 
 ### Install DAITSS Storage Master service
 #### Get Source
 > [daitss@{system name}]% cd /opt/web-services/sites
+
 > [daitss@{system name}]% git clone git://github.com/daitss/store-master.git storage-master
 
 
 #### Build dependencies
 > [daitss@{system name}]% cd storage-master
+
 > [daitss@{system name}]% bundle install --path bundle
 
 
@@ -355,33 +389,39 @@ Directory may vary depending on ruby gems location on your machine
 
 #### Get Source
 > [daitss@{system name}]% cd /opt/web-services/sites
+
 > [daitss@{system name}]% git clone git://github.com/daitss/transform.git
 
 
 #### Build dependencies
 > [daitss@{system name}]% cd transform
+
 > [daitss@{system name}]% bundle install --path bundle
 
 
 ### Install DAITSS Viruscheck service
 #### Get Source
 > [daitss@{system name}]% cd /opt/web-services/sites
+
 > [daitss@{system name}]% git clone git://github.com/daitss/viruscheck.git
 
 
 #### Build dependencies
 > [daitss@system]% cd viruscheck
+
 > [daitss@{system name}]% bundle install --path bundle
 
 
 ### Install DAITSS XML Resolution service
 #### Get Source
 > [daitss@{system name}]% cd /opt/web-services/sites
+
 > [daitss@{system name}]% git clone git://github.com/daitss/xmlresolution.git
 
 
 #### Build dependencies
 > [daitss@{system name}]% cd xmlresolution
+
 > [daitss@{system name}]% bundle install --path bundle
 
 
@@ -394,6 +434,7 @@ Directory may vary depending on ruby gems location on your machine
 > local0.* /var/log/daitss/common.log
 #### Restart Logging
 > [daitss@{system name}]% exit
+
 > [root@{system name}]# /etc/init.d/rsyslog restart
 
 
@@ -410,18 +451,26 @@ See the following illustration showing a typical request/response sequence:
 Apache is configured as follows: in the master apache config file, /etc/httpd/conf/httpd.conf, the following lines include our specific per-service configurations files:
 
 > NameVirtualHost *:80
+
 > Include /opt/web-services/conf.d/*.conf
 
 In the directory /opt/web-services/conf.d/ are the specific apache configuration files, one for each microservice:
 
-   actionplan.conf
-   core.conf
-   describe.conf
-   silo.conf
-   storage-master.conf
-   transform.conf
-   viruscheck.conf
-   xmlresolution.conf
+>    actionplan.conf
+
+>    core.conf
+
+>    describe.conf
+
+>    silo.conf
+
+>    storage-master.conf
+
+>    transform.conf
+
+>    viruscheck.conf
+
+>    xmlresolution.conf
 
 As an example, silo.conf has the following contents
 
@@ -462,13 +511,21 @@ The apache configuration files for the remaining seven microservices will specif
 The thin configuration files are contained in the directory /opt/web-services/conf.d/thin/, one per microservice. The silo configuration file silo.yml has the contents:
 
 > user: daitss
+
 > group: daitss
+
 > tag: silo
+
 > environment: production
+
 > pid: /var/run/daitss/thin/silo.pid
+
 > log: /var/log/daitss/thin/silo.log
+
 > port: 7000
+
 > chdir: /opt/web-services/sites/silo-pool
+
 > timeout: 300
 
 
@@ -493,6 +550,7 @@ A very common error is to have a mismatch between the port in the apache and the
 
 #### Add the following lines
 > NameVirtualHost *:80
+
 > Include /opt/web-services/conf.d/*.conf
 
 
@@ -506,12 +564,19 @@ A very common error is to have a mismatch between the port in the apache and the
 
 #### Add the following lines
 > 127.0.0.1 silo.{system name}.local
+
 > 127.0.0.1 storagemaster.{system name}.local
+
 > 127.0.0.1 actionplan.{system name}.local
+
 > 127.0.0.1 core.{system name}.local
+
 > 127.0.0.1 describe.{system name}.local
+
 > 127.0.0.1 transform.{system name}.local
+
 > 127.0.0.1 viruscheck.{system name}.local
+
 > 127.0.0.1 xmlresolution.{system name}.local
 
 
@@ -534,20 +599,27 @@ All of the commands in this section should be run as the daitss user, unless oth
 Create the file '/opt/web-services/conf.d/daitss-config.yml' and add the following lines:
 
 > database:
+
 > silo_db: postgres://daitss:daitss@localhost/silo_pool_db
+
 > silo.{system name}.local:
+
 > log_database_queries: false
+
 > silo_temp_directory: /var/daitss/tmp
+
 > log_syslog_facility: LOG_LOCAL0
 
 
 #### Setting up the Silo-Pool Database
 > [daitss@{system name}]% cd /opt/web-services/sites/silo-pool
+
 > [daitss@{system name}]% bundle exec tools/create-db --db-string postgres://daitss:daitss@localhost/silo_pool_db
 
 
 #### Add a new silo to the database
 > [daitss@{system name}]% cd /opt/web-services/sites/silo-pool
+
 > [daitss@{system name}]% bundle exec tools/add-silos --db-string postgres://daitss:daitss@localhost/silo_pool_db --server-name "silo.{system name}.local" /var/daitss/silo
 
 ### Configuring the Silo-Pool Web Server
@@ -585,13 +657,21 @@ Create the file '/opt/web-services/conf.d/silo.conf' with the following lines:
 Create the file '/opt/web-services/conf.d/thin/silos.yml' with the following lines:
 
 > user: daitss
+
 > group: daitss
+
 > tag: silo
+
 > environment: production
+
 > pid: /var/run/daitss/thin/silo.pid
+
 > log: /var/log/daitss/thin/silo.log
+
 > port: 7000
+
 > chdir: /opt/web-services/sites/silo-pool
+
 > timeout: 300
 
 ## Configuring Storage Master Service
@@ -612,9 +692,13 @@ Open the file '/opt/web-services/conf.d/daitss-config.yml' and add the following
 Add the following lines to the end of the file:
 
 > defaults:
+
 > required_pools: 1
+
 > storagemaster.{system name}.local:
+
 > log_syslog_facility: LOG_LOCAL0
+
 > log_database_queries: false
 
 
@@ -622,9 +706,11 @@ Add the following lines to the end of the file:
 
 #### Initalize Storage Master database
 > [daitss@{system name}]% cd /opt/web-services/sites/storage-master
+
 > [daitss@{system name}]% bundle exec tools/create-db --db-string postgres://daitss:daitss@localhost/storage_master_db
 #### Add a New Silo-Pool to the Database
 > [daitss@{system name}]% cd /opt/web-services/sites/storage-master
+
 > [daitss@{system name}]% bundle exec tools/add-pools --db-string postgres://daitss:daitss@localhost/storage_master_db silo.{system name}.local
 
 
@@ -775,44 +861,67 @@ Open the file '/opt/web-services/conf.d/daitss-config.yml' and add the following
 
 Now, add the following lines to the end of the file:
 
-core.{system name}.local:
-    log_syslog_facility:       LOG_LOCAL0
-    submit_log_directory:      /var/log/daitss/submit
-    pulse_log_filename:        /var/log/daitss/daemons/pulse.log
-    mailer_log_filename:       /var/log/daitss/daemons/reporter.log
+> core.{system name}.local:
+
+>     log_syslog_facility:       LOG_LOCAL0
+
+>     submit_log_directory:      /var/log/daitss/submit
+
+>     pulse_log_filename:        /var/log/daitss/daemons/pulse.log
+
+>     mailer_log_filename:       /var/log/daitss/daemons/reporter.log
  
-    d1_globals_dir:             
+>     d1_globals_dir:             
  
-    data_dir:                  /var/daitss/data
+>     data_dir:                  /var/daitss/data
  
-    uri_prefix:                daitss-demo://
-    http_timeout:              600
+>     uri_prefix:                daitss-demo://
+
+>     http_timeout:              600
  
-    actionplan_url:            http://actionplan.{system name}.local
-    describe_service:
-          remote:              false
-          url:                 http://describe.{system name}.local
-    storage_url:               http://storagemaster.{system name}.local
-    viruscheck_url:            http://viruscheck.{system name}.local
-    transform_service:
-           remote:             false
-           url:                http://transform.{system name}.local
-           skip_undefined:     true
-    xmlresolution_url:         http://xmlresolution.{system name}.local
+>     actionplan_url:            http://actionplan.{system name}.local
+
+>     describe_service:
+
+>           remote:              false
+
+>           url:                 http://describe.{system name}.local
+
+>     storage_url:               http://storagemaster.{system name}.local
+
+>     viruscheck_url:            http://viruscheck.{system name}.local
+
+>     transform_service:
+
+>            remote:             false
+
+>            url:                http://transform.{system name}.local
+
+>            skip_undefined:     true
+
+>     xmlresolution_url:         http://xmlresolution.{system name}.local
  
-    ingest_throttle:           1
-    dissemination_throttle:    1
-    refresh_throttle:          0
-    withdrawal_throttle:       1
-    queueing_discipline:       lifo
+>     ingest_throttle:           1
+
+>     dissemination_throttle:    1
+
+>     refresh_throttle:          0
+
+>     withdrawal_throttle:       1
+
+>     queueing_discipline:       lifo
  
-    smtp_server:
-    max_file_size:             107374182400
+>     smtp_server:
+
+>     max_file_size:             107374182400
  
-    jvm_options:
-      - -Xmx256m
-      - -Dhttp.proxyHost=localhost
-      - -Dhttp.proxyPort=3128
+>     jvm_options:
+
+>       - -Xmx256m
+
+>       - -Dhttp.proxyHost=localhost
+
+>       - -Dhttp.proxyPort=3128
 
 
 
@@ -837,6 +946,7 @@ To set these variables, open the file '/home/daitss/.bashrc' and add these lines
 
 #### Configuring Core Service Database
 > [daitss@{system name}]% cd /opt/web-services/sites/core
+
 > [daitss@{system name}]% bundle exec ./bin/init
 
 
