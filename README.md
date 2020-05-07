@@ -59,23 +59,23 @@ https://daitss.fcla.edu/content/documentation
 #### Update System
 > [root@{system name}]# yum update
 #### Update yum prior to installing
-[root@{system name}]# yum install ruby-1.9.3 ruby-devel-1.9.3
+> [root@{system name}]# yum install ruby-1.9.3 ruby-devel-1.9.3
 #### Install Ruby and Ruby Development Files (specifically requires 1.9.3)
-[root@{system name}]# yum install ruby-rdoc
+> [root@{system name}]# yum install ruby-rdoc
 #### Necessary to avoid RDoc documentation errors when installing ruby gems
-[root@{system name}]# yum install rubygems
-[root@{system name}]# gem update --system
+> [root@{system name}]# yum install rubygems
+> [root@{system name}]# gem update --system
 
 
 #### Install ruby gems and update it
-[root@{system name}]# gem update --system 1.8.11
+> [root@{system name}]# gem update --system 1.8.11
 #### Needed for a deprecated method 'source_index'
-[root@{system name}]# yum install git
+> [root@{system name}]# yum install git
 #### Install git (optional step if not already installed)
-[root@{system name}]# yum install java-1.7.0-openjdk java-1.7.0-openjdk-devel
+> [root@{system name}]# yum install java-1.7.0-openjdk java-1.7.0-openjdk-devel
 #### Install Java 1.7 (latest revision of 1.7, should be 1.7.0_45 or later) open JDK
-[root@{system name}]# rpm -ivh https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-6-x86_64/pgdg-redhat96-9.6-3.noarch.rpm
-[root@{system name}]# yum install postgresql96 postgresql96-contrib postgresql96-server postgresql96-devel
+> [root@{system name}]# rpm -ivh https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-6-x86_64/pgdg-redhat96-9.6-3.noarch.rpm
+> [root@{system name}]# yum install postgresql96 postgresql96-contrib postgresql96-server postgresql96-devel
 
 
 #### Download RPM and Install Postgresql 9.x
@@ -86,24 +86,24 @@ Postgresql 8.4 should be sufficient, most likely a version of postgres will alre
 
 
 #### Install GCC (if not already installed)
-[root@{system name}]# yum install gcc gcc-c++
+> [root@{system name}]# yum install gcc gcc-c++
 
 
 #### Install LibXML
-[root@{system name}]# yum install libxml2-devel
+> [root@{system name}]# yum install libxml2-devel
 
 
 #### Install LibXSLT
-[root@{system name}]# yum install libxslt-devel
+> [root@{system name}]# yum install libxslt-devel
 
 
 #### Install Libcurl
-[root@{system name}]# yum install libcurl-devel
+> [root@{system name}]# yum install libcurl-devel
 
 
 #### Install ClamAV
-[root@{system name}]# rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
-[root@{system name}]# yum install clamav clamd
+> [root@{system name}]# rpm -Uvh http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm
+> [root@{system name}]# yum install clamav clamd
 Note
 
 To install ClamAV, it is first necessary to install the EPEL repository (line 1)
@@ -112,30 +112,30 @@ To install ClamAV, it is first necessary to install the EPEL repository (line 1)
 
 Install Syslog
 
-[root@{system name}]# yum install rsyslog
+> [root@{system name}]# yum install rsyslog
 
 
 #### Install crontabs
-[root@{system name}]# yum install crontabs
+> [root@{system name}]# yum install crontabs
 
 
 #### Install Squid
-[root@{system name}]# yum install squid
+> [root@{system name}]# yum install squid
 
 
 #### Install Apache Dev Libraries
-[root@{system name}]# yum install httpd-devel
+> [root@{system name}]# yum install httpd-devel
 
 
 #### Install Preservation Tools
 For 64-bit machines:
 
-[root@{system name}]# rpm -Uvh http://repository.it4i.cz/mirrors/repoforge/redhat/el6/en/x86_64/rpmforge/RPMS/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
+> [root@{system name}]# rpm -Uvh http://repository.it4i.cz/mirrors/repoforge/redhat/el6/en/x86_64/rpmforge/RPMS/rpmforge-release-0.5.3-1.el6.rf.x86_64.rpm
 
 
 For 32-bit machines:
 
-[root@{system name}]# rpm -Uvh http://repository.it4i.cz/mirrors/repoforge/redhat/el6/en/x86_64/rpmforge/RPMS/rpmforge-release-0.5.3-1.el6.rf.i686.rpm
+> [root@{system name}]# rpm -Uvh http://repository.it4i.cz/mirrors/repoforge/redhat/el6/en/x86_64/rpmforge/RPMS/rpmforge-release-0.5.3-1.el6.rf.i686.rpm
 Note
 
 These links are different from the daitss install instructions posted on the wiki
@@ -143,14 +143,14 @@ These links are different from the daitss install instructions posted on the wik
 
 
 #### Install Preservation Tools
-[root@{system name}]# yum install ffmpeg
-[root@{system name}]# yum install mencoder
-[root@{system name}]# yum install libquicktime
+> [root@{system name}]# yum install ffmpeg
+> [root@{system name}]# yum install mencoder
+> [root@{system name}]# yum install libquicktime
 
 
 ### Java Configuration
 #### Open .bashrc file to add JAVA_HOME to system path
-[root@{system name}]# vi /home/daitss/.bashrc
+> [root@{system name}]# vi /home/daitss/.bashrc
 
 
 #### Add the following lines at the end of the file
@@ -163,7 +163,7 @@ It is important to ensure /usr/java/latest is properly setup as a symbolic link 
 
 
 #### Create Symbolic Link for Latest Java Installation
-[root@{system name} ~]# ln -s /etc/alternatives/java_sdk /usr/java/latest
+> [root@{system name} ~]# ln -s /etc/alternatives/java_sdk /usr/java/latest
 Note
 
 Use desired Java Installation path in lieu of /etc/alternatives/java_sdk if java sdk is installed in a different location on the installation environment
@@ -171,13 +171,13 @@ Use desired Java Installation path in lieu of /etc/alternatives/java_sdk if java
 
 
 #### Confirm Symbolic Link is Working
-[root@{system name} ~]# ls -l /usr/java/latest ~> lrwxrwxrwx. 1 root root 26 May 14 2012 /usr/java/latest -> /etc/alternatives/java_sdk
+> [root@{system name} ~]# ls -l /usr/java/latest ~> lrwxrwxrwx. 1 root root 26 May 14 2012 /usr/java/latest -> /etc/alternatives/java_sdk
 
 
 ### PostgreSQL Configuration
 
 #### Init Postgres database cluster
-[root@{system name}]# service postgresql-xx initdb
+> [root@{system name}]# service postgresql-xx initdb
 Note
 
 xx represents postgres major/minor version, so if you have postgres 9.6 installed, the command would be service postgres-96 initdb
@@ -185,7 +185,7 @@ xx represents postgres major/minor version, so if you have postgres 9.6 installe
 
 
 #### Update Postgres Host-Based Authentication Configuration File
-[root@system]# vi /var/lib/pgsql/x.x/data/pg_hba.conf
+> [root@system]# vi /var/lib/pgsql/x.x/data/pg_hba.conf
 Note
 
 x.x represents postgres major.minor version, so if you have postgres 9.6 installed, the command would be vi /var/lib/pgsql/9.6/data/pg_hba.conf
@@ -193,29 +193,29 @@ x.x represents postgres major.minor version, so if you have postgres 9.6 install
 
 
 #### Replace
-local all all ident
+> local all all ident
 
 #### With
-local all all trust
+> local all all trust
 
 
 #### Replace 
-host all all 127.0.0.1/32 ident
+> host all all 127.0.0.1/32 ident
 
 
 #### With 
-host all all 127.0.0.1/32 md5
+> host all all 127.0.0.1/32 md5
 
 
 #### Replace 
-host all all ::1/128 ident
+> host all all ::1/128 ident
 
 
 #### With 
-host all all ::1/128 md5
+> host all all ::1/128 md5
 
 #### Start database service
-[root@{system name}]# service postgresql-9.x start
+> [root@{system name}]# service postgresql-9.x start
 Note
 
 Replace 9.x with locally used version (i.e. - if using Postgresql 9.6, use postgresql-9.6 start)
@@ -223,78 +223,79 @@ Replace 9.x with locally used version (i.e. - if using Postgresql 9.6, use postg
 
 
 #### Create a Postgres database user.
-[root@{system name}]# su - postgres
-[postgres@{system name}]% createuser daitss
+> [root@{system name}]# su - postgres
+> [postgres@{system name}]% createuser daitss
 
 
 #### Start Postgres client session
-[postgres@{system name}]% psql
-postgres=# ALTER USER daitss WITH PASSWORD 'daitss';
-postgres=# \q;
+> [postgres@{system name}]% psql
+> postgres=# ALTER USER daitss WITH PASSWORD 'daitss';
+> postgres=# \q;
 
 
 #### Create Databases
-[postgres@{system name}]% createdb daitss
-[postgres@{system name}]% createdb silo_pool_db
-[postgres@{system name}]% createdb storage_master_db
+> [postgres@{system name}]% createdb daitss
+> [postgres@{system name}]% createdb silo_pool_db
+> [postgres@{system name}]% createdb storage_master_db
 
 
 #### Update bashrc
-[postgres@{system name}]% exit
-[root@{system name}]# sudo su - daitss
-[daitss@{system name}]% vi /home/daitss/.bashrc
+> [postgres@{system name}]% exit
+> [root@{system name}]# sudo su - daitss
+> [daitss@{system name}]% vi /home/daitss/.bashrc
 
 
 #### Add the following
-export PATH=$JAVA_HOME/bin:/usr/{pgsql directory}/bin:$PATH
+> export PATH=$JAVA_HOME/bin:/usr/{pgsql directory}/bin:$PATH
+
 ### Install Required RubyGems
 
 
 #### Install bundler and sys-proctable (0.9.0 linux x86-64)
-[root@{system name}]# gem install bundler
-[root@{system name}]# gem install sys-proctable --version 0.9.0 --platform x86-64-linux
+> [root@{system name}]# gem install bundler
+> [root@{system name}]# gem install sys-proctable --version 0.9.0 --platform x86-64-linux
 
 
 ### Get DAITSS Source
 
 #### Create DAITSS directories
-[root@{system name}]# install -d -o daitss -g daitss -m 755 /opt/web-services/sites
-[root@{system name}]# install -d -o daitss -g daitss -m 755 /opt/web-services/conf.d/thin
-[root@{system name}]# install -d -o daitss -g daitss -m 755 /var/daitss/data
-[root@{system name}]# install -d -o daitss -g daitss -m 755 /var/daitss/silo
-[root@{system name}]# install -d -o daitss -g daitss -m 755 /var/daitss/xmlresolution/collections
-[root@{system name}]# install -d -o daitss -g daitss -m 755 /var/daitss/xmlresolution/schemas
-[root@{system name}]# install -d -o daitss -g daitss -m 755 /var/log/daitss/web-services
-[root@{system name}]# install -d -o daitss -g daitss -m 755 /var/log/daitss/daemons
-[root@{system name}]# install -d -o daitss -g daitss -m 755 /var/log/daitss/submit
-[root@{system name}]# install -d -o daitss -g daitss -m 755 /var/log/daitss/thin
-[root@{system name}]# install -d -o daitss -g daitss -m 755 /var/run/daitss
-[root@{system name}]# install -d -o daitss -g daitss -m 775 /var/daitss/tmp
+> [root@{system name}]# install -d -o daitss -g daitss -m 755 /opt/web-services/sites
+> [root@{system name}]# install -d -o daitss -g daitss -m 755 /opt/web-services/conf.d/thin
+> [root@{system name}]# install -d -o daitss -g daitss -m 755 /var/daitss/data
+> [root@{system name}]# install -d -o daitss -g daitss -m 755 /var/daitss/silo
+> [root@{system name}]# install -d -o daitss -g daitss -m 755 /var/daitss/xmlresolution/collections
+> [root@{system name}]# install -d -o daitss -g daitss -m 755 /var/daitss/xmlresolution/schemas
+> [root@{system name}]# install -d -o daitss -g daitss -m 755 /var/log/daitss/web-services
+> [root@{system name}]# install -d -o daitss -g daitss -m 755 /var/log/daitss/daemons
+> [root@{system name}]# install -d -o daitss -g daitss -m 755 /var/log/daitss/submit
+> [root@{system name}]# install -d -o daitss -g daitss -m 755 /var/log/daitss/thin
+> [root@{system name}]# install -d -o daitss -g daitss -m 755 /var/run/daitss
+> [root@{system name}]# install -d -o daitss -g daitss -m 775 /var/daitss/tmp
 ### Install DAITSS Core Service
 #### Get Source
-[daitss@{system name}]% cd /opt/web-services/sites
-[daitss@{system name}]% git clone git://github.com/daitss/core.git
+> [daitss@{system name}]% cd /opt/web-services/sites
+> [daitss@{system name}]% git clone git://github.com/daitss/core.git
 
 
 Build dependencies
 
-[daitss@{system name}]% cd core
+> [daitss@{system name}]% cd core
 
 
 #### Alter Gemfile
-[daitss@{system name}]% vi Gemfile
+> [daitss@{system name}]% vi Gemfile
 
 
 #### Replace 
-gem 'sys-proctable', :path => '/opt/ruby-1.8.7/lib/ruby/gems/1.8/gems/sys-proctable-0.9.0-x86-linux'
+> gem 'sys-proctable', :path => '/opt/ruby-1.8.7/lib/ruby/gems/1.8/gems/sys-proctable-0.9.0-x86-linux'
 
 
 #### (64-bit) with 
-gem 'sys-proctable', :path => '/usr/lib64/ruby/gems/1.8/gems/sys-proctable-0.9.0-x86-linux'
+> gem 'sys-proctable', :path => '/usr/lib64/ruby/gems/1.8/gems/sys-proctable-0.9.0-x86-linux'
 
 
 #### (32-bit) with 
-gem 'sys-proctable', :path => '/usr/lib/ruby/gems/1.8/gems/sys-proctable-0.9.0-x86-linux'
+> gem 'sys-proctable', :path => '/usr/lib/ruby/gems/1.8/gems/sys-proctable-0.9.0-x86-linux'
 Note
 
 Directory may vary depending on ruby gems location on your machine
@@ -302,98 +303,98 @@ Directory may vary depending on ruby gems location on your machine
 
 
 #### Install Gem Bundle
-[daitss@{system name}]% bundle install --path bundle
+> [daitss@{system name}]% bundle install --path bundle
 
 
 ### Install DAITSS Actionplan Service
 
 #### Get Source
-[daitss@{system name}]% cd /opt/web-services/sites
-[daitss@{system name}]% git clone git://github.com/daitss/actionplan.git
+> [daitss@{system name}]% cd /opt/web-services/sites
+> [daitss@{system name}]% git clone git://github.com/daitss/actionplan.git
 
 
 #### Build dependencies
-[daitss@{system name}]% cd actionplan
-[daitss@{system name}]% bundle install --path bundle
+> [daitss@{system name}]% cd actionplan
+> [daitss@{system name}]% bundle install --path bundle
 
 
 ### Install DAITSS Description service
 #### Get Source
-[daitss@{system name}]% cd /opt/web-services/sites
-[daitss@{system name}]% git clone git://github.com/daitss/describe.git
+> [daitss@{system name}]% cd /opt/web-services/sites
+> [daitss@{system name}]% git clone git://github.com/daitss/describe.git
 
 
 #### Build dependencies
-[daitss@{system name}]% cd describe
-[daitss@{system name}]% bundle install --path bundle
+> [daitss@{system name}]% cd describe
+> [daitss@{system name}]% bundle install --path bundle
 
 
 ### Install DAITSS Silo-Pool service
 #### Get Source
-[daitss@{system name}]% cd /opt/web-services/sites
-[daitss@{system name}]% git clone git://github.com/daitss/silo-pool.git
+> [daitss@{system name}]% cd /opt/web-services/sites
+> [daitss@{system name}]% git clone git://github.com/daitss/silo-pool.git
 
 
 #### Build dependencies
-[daitss@{system name}]% cd silo-pool
-[daitss@{system name}]% bundle install --path bundle
+> [daitss@{system name}]% cd silo-pool
+> [daitss@{system name}]% bundle install --path bundle
 
 
 ### Install DAITSS Storage Master service
 #### Get Source
-[daitss@{system name}]% cd /opt/web-services/sites
-[daitss@{system name}]% git clone git://github.com/daitss/store-master.git storage-master
+> [daitss@{system name}]% cd /opt/web-services/sites
+> [daitss@{system name}]% git clone git://github.com/daitss/store-master.git storage-master
 
 
 #### Build dependencies
-[daitss@{system name}]% cd storage-master
-[daitss@{system name}]% bundle install --path bundle
+> [daitss@{system name}]% cd storage-master
+> [daitss@{system name}]% bundle install --path bundle
 
 
 ### Install DAITSS Transformation service
 
 #### Get Source
-[daitss@{system name}]% cd /opt/web-services/sites
-[daitss@{system name}]% git clone git://github.com/daitss/transform.git
+> [daitss@{system name}]% cd /opt/web-services/sites
+> [daitss@{system name}]% git clone git://github.com/daitss/transform.git
 
 
 #### Build dependencies
-[daitss@{system name}]% cd transform
-[daitss@{system name}]% bundle install --path bundle
+> [daitss@{system name}]% cd transform
+> [daitss@{system name}]% bundle install --path bundle
 
 
 ### Install DAITSS Viruscheck service
 #### Get Source
-[daitss@{system name}]% cd /opt/web-services/sites
-[daitss@{system name}]% git clone git://github.com/daitss/viruscheck.git
+> [daitss@{system name}]% cd /opt/web-services/sites
+> [daitss@{system name}]% git clone git://github.com/daitss/viruscheck.git
 
 
 #### Build dependencies
-[daitss@system]% cd viruscheck
-[daitss@{system name}]% bundle install --path bundle
+> [daitss@system]% cd viruscheck
+> [daitss@{system name}]% bundle install --path bundle
 
 
 ### Install DAITSS XML Resolution service
 #### Get Source
-[daitss@{system name}]% cd /opt/web-services/sites
-[daitss@{system name}]% git clone git://github.com/daitss/xmlresolution.git
+> [daitss@{system name}]% cd /opt/web-services/sites
+> [daitss@{system name}]% git clone git://github.com/daitss/xmlresolution.git
 
 
 #### Build dependencies
-[daitss@{system name}]% cd xmlresolution
-[daitss@{system name}]% bundle install --path bundle
+> [daitss@{system name}]% cd xmlresolution
+> [daitss@{system name}]% bundle install --path bundle
 
 
 ### Configure Logging
 #### Open rsyslog to configure logging
-[daitss@{system name}]% vi /etc/rsyslog.conf
+> [daitss@{system name}]% vi /etc/rsyslog.conf
 
 
 #### Add the following lines
-local0.* /var/log/daitss/common.log
+> local0.* /var/log/daitss/common.log
 #### Restart Logging
-[daitss@{system name}]% exit
-[root@{system name}]# /etc/init.d/rsyslog restart
+> [daitss@{system name}]% exit
+> [root@{system name}]# /etc/init.d/rsyslog restart
 
 
 ### Configuring Apache
@@ -408,8 +409,9 @@ See the following illustration showing a typical request/response sequence:
 
 Apache is configured as follows: in the master apache config file, /etc/httpd/conf/httpd.conf, the following lines include our specific per-service configurations files:
 
-   NameVirtualHost *:80
-   Include /opt/web-services/conf.d/*.conf
+> NameVirtualHost *:80
+> Include /opt/web-services/conf.d/*.conf
+
 In the directory /opt/web-services/conf.d/ are the specific apache configuration files, one for each microservice:
 
    actionplan.conf
@@ -427,18 +429,18 @@ As an example, silo.conf has the following contents
 
 
 
-  <VirtualHost *:80>
-    ServerName silo.example.com
-    KeepAlive Off
-    ProxyPreserveHost On
-    ProxyRequests Off
-    ProxyTimeout 14400
-    <Proxy balancer://silo_servers>
-       BalancerMember http://127.0.0.1:7000
-    </Proxy>
-    ProxyPass / balancer://silo_servers/
-    ProxyPassReverse / balancer://silo_servers/
-  </VirtualHost>
+>   <VirtualHost *:80>
+>     ServerName silo.example.com
+>     KeepAlive Off
+>     ProxyPreserveHost On
+>     ProxyRequests Off
+>     ProxyTimeout 14400
+>     <Proxy balancer://silo_servers>
+>        BalancerMember http://127.0.0.1:7000
+>     </Proxy>
+>     ProxyPass / balancer://silo_servers/
+>     ProxyPassReverse / balancer://silo_servers/
+>   </VirtualHost>
 
 
 This configuration causes all requests to the external interface using hostname silo.example.com to be forwarded the backend thin web server running on localhost, port 7000.
