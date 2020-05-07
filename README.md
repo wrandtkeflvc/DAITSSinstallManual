@@ -403,8 +403,7 @@ Apache is used as reverse proxy and forwards external requests to thin servers r
 
 See the following illustration showing a typical request/response sequence:
 
-
-
+![Configuration](image2018-10-25_14-23-41.png)
 
 
 Apache is configured as follows: in the master apache config file, /etc/httpd/conf/httpd.conf, the following lines include our specific per-service configurations files:
