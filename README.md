@@ -430,16 +430,27 @@ As an example, silo.conf has the following contents
 
 
 >   <VirtualHost *:80>
+
 >     ServerName silo.example.com
+
 >     KeepAlive Off
+
 >     ProxyPreserveHost On
+
 >     ProxyRequests Off
+
 >     ProxyTimeout 14400
+
 >     <Proxy balancer://silo_servers>
+
 >        BalancerMember http://127.0.0.1:7000
+
 >     </Proxy>
+
 >     ProxyPass / balancer://silo_servers/
+
 >     ProxyPassReverse / balancer://silo_servers/
+
 >   </VirtualHost>
 
 
