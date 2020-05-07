@@ -194,29 +194,29 @@ x.x represents postgres major.minor version, so if you have postgres 9.6 install
 
 
 
-Replace
+####  Replace
 local all all ident
 
-With
+####  With
 local all all trust
 
 
-Replace 
+####  Replace 
 host all all 127.0.0.1/32 ident
 
 
-With 
+####  With 
 host all all 127.0.0.1/32 md5
 
 
-Replace 
+####  Replace 
 host all all ::1/128 ident
 
 
-With 
+####  With 
 host all all ::1/128 md5
 
-Start database service
+####  Start database service
 [root@{system name}]# service postgresql-9.x start
 Note
 
@@ -224,42 +224,42 @@ Replace 9.x with locally used version (i.e. - if using Postgresql 9.6, use postg
 
 
 
-Create a Postgres database user.
+####  Create a Postgres database user.
 [root@{system name}]# su - postgres
 [postgres@{system name}]% createuser daitss
 
 
-Start Postgres client session
+####  Start Postgres client session
 [postgres@{system name}]% psql
 postgres=# ALTER USER daitss WITH PASSWORD 'daitss';
 postgres=# \q;
 
 
-Create Databases
+####  Create Databases
 [postgres@{system name}]% createdb daitss
 [postgres@{system name}]% createdb silo_pool_db
 [postgres@{system name}]% createdb storage_master_db
 
 
-Update bashrc
+####  Update bashrc
 [postgres@{system name}]% exit
 [root@{system name}]# sudo su - daitss
 [daitss@{system name}]% vi /home/daitss/.bashrc
 
 
-Add the following
+####  Add the following
 export PATH=$JAVA_HOME/bin:/usr/{pgsql directory}/bin:$PATH
-Install Required RubyGems
+### Install Required RubyGems
 
 
-Install bundler and sys-proctable (0.9.0 linux x86-64)
+#### Install bundler and sys-proctable (0.9.0 linux x86-64)
 [root@{system name}]# gem install bundler
 [root@{system name}]# gem install sys-proctable --version 0.9.0 --platform x86-64-linux
 
 
-Get DAITSS Source
+### Get DAITSS Source
 
-Create DAITSS directories
+####  Create DAITSS directories
 [root@{system name}]# install -d -o daitss -g daitss -m 755 /opt/web-services/sites
 [root@{system name}]# install -d -o daitss -g daitss -m 755 /opt/web-services/conf.d/thin
 [root@{system name}]# install -d -o daitss -g daitss -m 755 /var/daitss/data
@@ -272,8 +272,8 @@ Create DAITSS directories
 [root@{system name}]# install -d -o daitss -g daitss -m 755 /var/log/daitss/thin
 [root@{system name}]# install -d -o daitss -g daitss -m 755 /var/run/daitss
 [root@{system name}]# install -d -o daitss -g daitss -m 775 /var/daitss/tmp
-Install DAITSS Core Service
-Get Source
+### Install DAITSS Core Service
+####  Get Source
 [daitss@{system name}]% cd /opt/web-services/sites
 [daitss@{system name}]% git clone git://github.com/daitss/core.git
 
@@ -283,21 +283,19 @@ Build dependencies
 [daitss@{system name}]% cd core
 
 
-Alter Gemfile
+####  Alter Gemfile
 [daitss@{system name}]% vi Gemfile
 
 
-Replace 
+####  Replace 
 gem 'sys-proctable', :path => '/opt/ruby-1.8.7/lib/ruby/gems/1.8/gems/sys-proctable-0.9.0-x86-linux'
 
 
-(64-bit)
-with 
+####  (64-bit) with 
 gem 'sys-proctable', :path => '/usr/lib64/ruby/gems/1.8/gems/sys-proctable-0.9.0-x86-linux'
 
 
-(32-bit)
-with 
+####  (32-bit) with 
 gem 'sys-proctable', :path => '/usr/lib/ruby/gems/1.8/gems/sys-proctable-0.9.0-x86-linux'
 Note
 
@@ -305,102 +303,102 @@ Directory may vary depending on ruby gems location on your machine
 
 
 
-Install Gem Bundle
+####  Install Gem Bundle
 [daitss@{system name}]% bundle install --path bundle
 
 
-Install DAITSS Actionplan Service
+###  Install DAITSS Actionplan Service
 
-Get Source
+####  Get Source
 [daitss@{system name}]% cd /opt/web-services/sites
 [daitss@{system name}]% git clone git://github.com/daitss/actionplan.git
 
 
-Build dependencies
+####  Build dependencies
 [daitss@{system name}]% cd actionplan
 [daitss@{system name}]% bundle install --path bundle
 
 
-Install DAITSS Description service
-Get Source
+###  Install DAITSS Description service
+####  Get Source
 [daitss@{system name}]% cd /opt/web-services/sites
 [daitss@{system name}]% git clone git://github.com/daitss/describe.git
 
 
-Build dependencies
+####  Build dependencies
 [daitss@{system name}]% cd describe
 [daitss@{system name}]% bundle install --path bundle
 
 
-Install DAITSS Silo-Pool service
-Get Source
+###  Install DAITSS Silo-Pool service
+####  Get Source
 [daitss@{system name}]% cd /opt/web-services/sites
 [daitss@{system name}]% git clone git://github.com/daitss/silo-pool.git
 
 
-Build dependencies
+####  Build dependencies
 [daitss@{system name}]% cd silo-pool
 [daitss@{system name}]% bundle install --path bundle
 
 
-Install DAITSS Storage Master service
-Get Source
+###  Install DAITSS Storage Master service
+####  Get Source
 [daitss@{system name}]% cd /opt/web-services/sites
 [daitss@{system name}]% git clone git://github.com/daitss/store-master.git storage-master
 
 
-Build dependencies
+####  Build dependencies
 [daitss@{system name}]% cd storage-master
 [daitss@{system name}]% bundle install --path bundle
 
 
-Install DAITSS Transformation service
+###  Install DAITSS Transformation service
 
-Get Source
+####  Get Source
 [daitss@{system name}]% cd /opt/web-services/sites
 [daitss@{system name}]% git clone git://github.com/daitss/transform.git
 
 
-Build dependencies
+####  Build dependencies
 [daitss@{system name}]% cd transform
 [daitss@{system name}]% bundle install --path bundle
 
 
-Install DAITSS Viruscheck service
-Get Source
+###  Install DAITSS Viruscheck service
+####  Get Source
 [daitss@{system name}]% cd /opt/web-services/sites
 [daitss@{system name}]% git clone git://github.com/daitss/viruscheck.git
 
 
-Build dependencies
+####  Build dependencies
 [daitss@system]% cd viruscheck
 [daitss@{system name}]% bundle install --path bundle
 
 
-Install DAITSS XML Resolution service
-Get Source
+###  Install DAITSS XML Resolution service
+####  Get Source
 [daitss@{system name}]% cd /opt/web-services/sites
 [daitss@{system name}]% git clone git://github.com/daitss/xmlresolution.git
 
 
-Build dependencies
+####  Build dependencies
 [daitss@{system name}]% cd xmlresolution
 [daitss@{system name}]% bundle install --path bundle
 
 
-Configure Logging
-Open rsyslog to configure logging
+###  Configure Logging
+####  Open rsyslog to configure logging
 [daitss@{system name}]% vi /etc/rsyslog.conf
 
 
-Add the following lines
+####  Add the following lines
 local0.* /var/log/daitss/common.log
-Restart Logging
+####  Restart Logging
 [daitss@{system name}]% exit
 [root@{system name}]# /etc/init.d/rsyslog restart
 
 
-Configuring Apache
+###  Configuring Apache
 There are two programs involved in handling the DAITSS web microservices, Apache httpd and a simple web server written in ruby called thin.
 
 Apache is used as reverse proxy and forwards external requests to thin servers running locally. Each of the eight DAITSS microservices are handled by its own instance of thin.
@@ -468,7 +466,7 @@ The thin program will use this file to setup the environment for the silo micros
 
 Note that the port in the thin configuration must match the port in the apache proxy directive. Each of eight microservices will run on its own unique port.
 
-Troubleshooting
+####  Troubleshooting
 After having followed the detailed directions below and starting the thin and apache daemons, there may be problems reaching an externally-accessible webservice such as http://silo.example.com/. 
 
 Refer to the figure above showing the request/response sequences. If there are problems, start by connecting to each microservice directly, e.g. for the silo microservice, use a browser to connect to http://localhost:7000/ to first determine if the microservice is running correctly. If not, review the log file specified in thin configuration file, for the silo example, /var/log/daitss/thin/silo.log
@@ -479,24 +477,24 @@ A very common error is to have a mismatch between the port in the apache and the
 
 
 
-Update httpd configuration file
+####  Update httpd configuration file
 [root@{system name}]# vi /etc/httpd/conf/httpd.conf
 
 
-Add the following lines
+####  Add the following lines
 NameVirtualHost *:80
 Include /opt/web-services/conf.d/*.conf
 
 
-Configure SELinux to allow Apache to connect to other HTTP Servers running locally
+####  Configure SELinux to allow Apache to connect to other HTTP Servers running locally
 [root@{system name}]# togglesebool httpd_can_network_connect
 
 
-Update System Hosts file
+####  Update System Hosts file
 [root@{system name}]# /etc/hosts
 
 
-Add the following lines
+####  Add the following lines
 127.0.0.1 silo.{system name}.local
 127.0.0.1 storagemaster.{system name}.local
 127.0.0.1 actionplan.{system name}.local
@@ -509,10 +507,10 @@ Add the following lines
 
 
 
-DAITSS Configuration and Environment Variables
+#  DAITSS Configuration and Environment Variables
 
 
-Configuring Silo-Pool Service
+## Configuring Silo-Pool Service
 
 
 Note
@@ -521,7 +519,7 @@ All of the commands in this section should be run as the daitss user, unless oth
 
 
 
-Setting up DAITSS Configuration
+###  Setting up DAITSS Configuration
 
 Create the file '/opt/web-services/conf.d/daitss-config.yml' and add the following lines:
 
@@ -533,19 +531,19 @@ silo_temp_directory: /var/daitss/tmp
 log_syslog_facility: LOG_LOCAL0
 
 
-Setting up the Silo-Pool Database
+####  Setting up the Silo-Pool Database
 [daitss@{system name}]% cd /opt/web-services/sites/silo-pool
 [daitss@{system name}]% bundle exec tools/create-db --db-string postgres://daitss:daitss@localhost/silo_pool_db
 
 
-Add a new silo to the database
+####  Add a new silo to the database
 [daitss@{system name}]% cd /opt/web-services/sites/silo-pool
 [daitss@{system name}]% bundle exec tools/add-silos --db-string postgres://daitss:daitss@localhost/silo_pool_db --server-name "silo.{system name}.local" /var/daitss/silo
 
-Configuring the Silo-Pool Web Server
+###  Configuring the Silo-Pool Web Server
 
 
-Configure Apache
+####  Configure Apache
 Create the file '/opt/web-services/conf.d/silo.conf' with the following lines:
 
 <VirtualHost *:80>
@@ -562,7 +560,7 @@ Create the file '/opt/web-services/conf.d/silo.conf' with the following lines:
 </VirtualHost>
 
 
-Configure thin
+####  Configure thin
 Create the file '/opt/web-services/conf.d/thin/silos.yml' with the following lines:
 
 user: daitss
@@ -575,7 +573,7 @@ port: 7000
 chdir: /opt/web-services/sites/silo-pool
 timeout: 300
 
-Configuring Storage Master Service
+##  Configuring Storage Master Service
 
 
 Note
@@ -584,7 +582,7 @@ All of the commands in this section should be run as the daitss user, unless oth
 
 
 
-Setting up DAITSS Configuration
+###  Setting up DAITSS Configuration
 
 Open the file '/opt/web-services/conf.d/daitss-config.yml' and add the following line to the database section:
 
@@ -599,18 +597,18 @@ log_syslog_facility: LOG_LOCAL0
 log_database_queries: false
 
 
-Setting up the Storage Master Database
+###  Setting up the Storage Master Database
 
-Initalize Storage Master database
+####  Initalize Storage Master database
 [daitss@{system name}]% cd /opt/web-services/sites/storage-master
 [daitss@{system name}]% bundle exec tools/create-db --db-string postgres://daitss:daitss@localhost/storage_master_db
-Add a New Silo-Pool to the Database
+####  Add a New Silo-Pool to the Database
 [daitss@{system name}]% cd /opt/web-services/sites/storage-master
 [daitss@{system name}]% bundle exec tools/add-pools --db-string postgres://daitss:daitss@localhost/storage_master_db silo.{system name}.local
 
 
-Configuring the Storage Master Web Server
-Configure Apache
+###  Configuring the Storage Master Web Server
+####  Configure Apache
 Create the file '/opt/web-services/conf.d/storagemaster.conf' with the following lines:
 
 <VirtualHost *:80>
@@ -627,7 +625,7 @@ Create the file '/opt/web-services/conf.d/storagemaster.conf' with the following
 </VirtualHost>
 
 
-Configure thin
+####  Configure thin
 Create the file '/opt/web-services/conf.d/thin/storagemaster.yml' with the following lines:
 
 user: daitss
@@ -640,7 +638,7 @@ port: 7100
 chdir: /opt/web-services/sites/storage-master
 timeout: 300
 
-Configuring Actionplan Service
+##  Configuring Actionplan Service
 
 
 Note
@@ -649,16 +647,16 @@ All of the commands in this section should be run as the daitss user, unless oth
 
 
 
-Setting up DAITSS configuration
+####  Setting up DAITSS configuration
 Open the file '/opt/web-services/conf.d/daitss-config.yml' and add the following lines to the end of the file:
 
 actionplan.{system name}.local:
 log_syslog_facility: LOG_LOCAL0
 
-Configuring the Actionplan webserver
+###  Configuring the Actionplan webserver
 
 
-Configure Apache
+####  Configure Apache
 Create the file '/opt/web-services/conf.d/actionplan.conf' with the following lines:
 
 <VirtualHost *:80>
@@ -677,7 +675,7 @@ Create the file '/opt/web-services/conf.d/actionplan.conf' with the following li
 
 
 
-Configure thin
+####  Configure thin
 Create the file '/opt/web-services/conf.d/thin/actionplan.yml' with the following lines:
 
 user: daitss
@@ -692,7 +690,7 @@ timeout: 300
 
 
 
-Configuring Core Service
+##  Configuring Core Service
 
 
 Note
@@ -701,12 +699,12 @@ All of the commands in this section should be run as the daitss user, unless oth
 
 
 
-Creating session-secret file
+####  Creating session-secret file
 [daitss@{system name}]% cd /opt/web-services/conf.d/
 [daitss@{system name}]% touch session-secret
 
 
-Setting up DAITSS Configuration
+###  Setting up DAITSS Configuration
 
 
 Open the file '/opt/web-services/conf.d/daitss-config.yml' and add the following line to the database section:
@@ -758,9 +756,9 @@ core.{system name}.local:
 
 
 
-Configuring User Environment
+###  Configuring User Environment
 
-Set Environment Variables
+####  Set Environment Variables
 
 
 To set these variables, open the file '/home/daitss/.bashrc' and add these lines:
@@ -770,20 +768,20 @@ export VIRTUAL_HOSTNAME=core.{system name}.local
 
 
 
-Load these changes into our current shell
+####  Load these changes into our current shell
 [daitss@{system name}]% source /home/daitss/.bashrc
 
 
 
-Configuring Core Service Database
+####  Configuring Core Service Database
 [daitss@{system name}]% cd /opt/web-services/sites/core
 [daitss@{system name}]% bundle exec ./bin/init
 
 
-Configuring the Core Web Server
+###  Configuring the Core Web Server
 
 
-Configure Apache
+####  Configure Apache
 
 
 Create the file '/opt/web-services/conf.d/core.conf' with the following lines:
@@ -804,7 +802,7 @@ Create the file '/opt/web-services/conf.d/core.conf' with the following lines:
 
 
 
-Configure thin
+####  Configure thin
 Create the file '/opt/web-services/conf.d/thin/core.yml' with the following lines:
 
 user: daitss
@@ -819,14 +817,14 @@ timeout: 300
 
 
 
-Configuring Description Service
+##  Configuring Description Service
 Note
 
 All of the commands in this section should be run as the daitss user, unless otherwise specified.
 
 
 
-Setting up DAITSS Configuration
+###  Setting up DAITSS Configuration
 Open the file '/opt/web-services/conf.d/daitss-config.yml' and add the following lines to the end of the file:
 
 describe.{system name}.local:
@@ -841,10 +839,10 @@ describe.{system name}.local:
 
 
 
-Configuring the Description Web Server
+###  Configuring the Description Web Server
 
 
-Configure Apache
+####  Configure Apache
 Create the file '/opt/web-services/conf.d/describe.conf' with the following lines:
 
 <VirtualHost *:80>
@@ -861,7 +859,7 @@ Create the file '/opt/web-services/conf.d/describe.conf' with the following line
 </VirtualHost>
 
 
-Configure thin
+####  Configure thin
 Create the file '/opt/web-services/conf.d/thin/describe.yml' with the following lines:
 
 user: daitss
@@ -875,14 +873,14 @@ chdir: /opt/web-services/sites/describe
 timeout: 300
 
 
-Configuring Transformation Service
+##  Configuring Transformation Service
 Note
 
 All of the commands in this section should be run as the daitss user, unless otherwise specified.
 
 
 
-Setting up DAITSS Configuration
+###  Setting up DAITSS Configuration
 
 
 Open the file '/opt/web-services/conf.d/daitss-config.yml' and add the following lines to the end of the file:
@@ -906,8 +904,8 @@ transform.{system name}.local:
        software:               libquicktime 1.1.5, depends_lib gettext, jpeg, libiconv, libpng, zlib, ffmpeg, faac, faad2, libvorbis, libogg, lame
 
 
-Configuring the Transformation Web Server
-Configure Apache
+###  Configuring the Transformation Web Server
+####  Configure Apache
 Create the file '/opt/web-services/conf.d/transform.conf' with the following lines:
 
 <VirtualHost *:80>
@@ -924,7 +922,7 @@ Create the file '/opt/web-services/conf.d/transform.conf' with the following lin
 </VirtualHost>
 
 
-Configure thin
+####  Configure thin
 Create the file '/opt/web-services/conf.d/thin/transform.yml' with the following lines:
 
 user: daitss
@@ -939,31 +937,31 @@ timeout: 300
 
 
 
-Configuring Viruscheck service
+##  Configuring Viruscheck service
 Note
 
 All of the commands in this section should be run as the DAITSS user, unless otherwise specified.
 
 
 
-Setting up DAITSS configuration
+###  Setting up DAITSS configuration
 Open the file '/opt/web-services/conf.d/daitss-config.yml' and add the following lines to the end of the file:
 
 viruscheck.{system name}.local:
     log_syslog_facility:         LOG_LOCAL0
 
 
-Configuring ClamAV
+###  Configuring ClamAV
 
-Set SELinux to permissive mode.
+####  Set SELinux to permissive mode.
 As root, open the file '/etc/selinux/config'.
 
-Replace the line
+####  Replace the line
 SELINUX=enforcing
 
 
 
-with the line
+####  with the line
 SELINUX=permissive
 
 
@@ -972,16 +970,16 @@ Save and close the file. The changes will take effect on next reboot. To set SEL
 [root@{system name}]# setenforce 0
 
 
-Configure the clamd daemon to run as root
+###  Configure the clamd daemon to run as root
 To do so, open the file '/etc/clamd.conf' and remove the following line:
 
 User clamav
 
 
-Configuring the Viruscheck Web Server
+###  Configuring the Viruscheck Web Server
 
 
-Configure Apache
+####  Configure Apache
 Create the file '/opt/web-services/conf.d/viruscheck.conf' with the following lines:
 
 <VirtualHost *:80>
@@ -998,7 +996,7 @@ Create the file '/opt/web-services/conf.d/viruscheck.conf' with the following li
 </VirtualHost>
 
 
-Configure thin
+####  Configure thin
 Create the file '/opt/web-services/conf.d/thin/viruscheck.yml' with the following lines:
 
 user: daitss
@@ -1012,13 +1010,13 @@ chdir: /opt/web-services/sites/viruscheck
 timeout: 300
 
 
-Configuring XML Resolution service
+##  Configuring XML Resolution service
 Note
 
 All of the commands in this section should be run as the daitss user, unless otherwise specified.
 
 
-Setting up DAITSS configuration
+###  Setting up DAITSS configuration
 Open the file '/opt/web-services/conf.d/daitss-config.yml' and add the following lines to the end of the file:
 
 xmlresolution.{system name}.local:
@@ -1027,10 +1025,10 @@ xmlresolution.{system name}.local:
     resolver_proxy:             localhost:3128
 
 
-Configuring the XML Resolution Web Server
+###  Configuring the XML Resolution Web Server
 
 
-Configure Apache
+####  Configure Apache
 Create the file '/opt/web-services/conf.d/xmlresolution.conf' with the following lines:
 
 <VirtualHost *:80>
@@ -1047,7 +1045,7 @@ Create the file '/opt/web-services/conf.d/xmlresolution.conf' with the following
 </VirtualHost>
 
 
-Configure thin
+####  Configure thin
 Create the file '/opt/web-services/conf.d/thin/xmlresolution.yml' with the following lines:
 
 user: daitss
@@ -1061,14 +1059,14 @@ chdir: /opt/web-services/sites/xmlresolution
 timeout: 300
 
 
-Configuring Fixity Checking
+##  Configuring Fixity Checking
 Note
 
 All of the commands in this section should be run as the daitss user, unless otherwise specified.
 
 
 
-Setting up DAITSS configuration
+###  Setting up DAITSS configuration
 Open the file '/opt/web-services/conf.d/daitss-config.yml' and add the following lines to the defaults section:
 
 fixity_expired_days:         7
@@ -1089,7 +1087,7 @@ collect-fixities:
    pid_directory:               /var/run/daitss
 
 
-Adding Fixity Checking Entries to crontab
+###  Adding Fixity Checking Entries to crontab
 To add entries to start the fixity checking scripts to the system crontab, Type:
 
 [daitss@{system name}]% crontab -e
@@ -1101,9 +1099,9 @@ In the editor window, add the following lines:
 2 2 * * * DAITSS_CONFIG=/opt/web-services/conf.d/daitss-config.yml BUNDLE_GEMFILE=/opt/web-services/sites/storage-master/Gemfile bundle exec /opt/web-services/sites/storage-master/tools/collect-fixities &> /dev/null
 
 
-Configuring Services to run on startup
+##  Configuring Services to run on startup
 
-Setup DAITSS services to run automatically on system boot
+###  Setup DAITSS services to run automatically on system boot
 make sure all system services that DAITSS depends on start up on system boot
 install the DAITSS rc script and configure it to start on boot
 
@@ -1117,20 +1115,20 @@ To ensure that postgresql, clamd, httpd, squid, and rsyslog are selected to run 
 [root@{system name}]#chkconfig rsyslog on
 
 
-Installing and configuring the DAITSS rc script
+###  Installing and configuring the DAITSS rc script
 
 The first step is to copy the DAITSS rc script into '/etc/init.d:'
 
 [root@{system name}]# cp /opt/web-services/sites/core/bin/init.d/oss/daitss /etc/init.d
 
 
-Configure the System to run the RC script on boot
+###  Configure the System to run the RC script on boot
 [root@{system name}]# cd /etc/init.d
 [root@{system name}]# chkconfig --add daitss
 [root@{system name}]# chkconfig daitss on
 
 
-Add sudo Privileges to the daitss user
+###  Add sudo Privileges to the daitss user
 Open the file '/etc/sudoers' and add the following lines:
 
 daitss  ALL=(ALL)      ALL
