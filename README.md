@@ -4,36 +4,33 @@ Page provides instructions for developers who are looking to install DAITSS on a
 # DAITSS Dependencies
 The Following dependencies are currently required to complete the DAITSS installation:
 
-RHEL 6.x (Install Guide written to RHEL 6.x)
-Ruby 1.9.3, Ruby Development Libraries (ruby-devel) & Ruby RDoc (ruby-rdoc)
-rubygems 1.8+
-Git - Latest
-Java OpenJDK 1.7.0_45+
-Postgres 9.x Recommended (8.x required)
-GCC GCC-C++ (4.4.7+)
-LibXML (libxml2-devel) - latest compatible with RHEL 6.x
-LibXSLT (libxslt-devel) - latest compatible with RHEL 6.x
-Libcurl (libcurl-devel) - latest compatible with RHEL 6.x
-EPEL Repository (http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm)
-ClamAV Clamd
-RSyslog - latest compatible with RHEL 6.x
-Crontabs - latest compatible with RHEL 6.x
-Squid - latest compatible with RHEL 6.x
-Apache Dev Libraries (http-devel) - latest compatible with RHEL 6.x
-RPMForge Repository (http://packages.sw.be/rpmforge-release/rpmforge-release-0.5.2-2.el6.rf.x86_64.rpm)
-ffmpeg (requires RPMForge)
-mencoder (requires RPMForge)
-libquicktime (requires RPMForge)
-Global Gems 
+* RHEL 6.x (Install Guide written to RHEL 6.x)
+* Ruby 1.9.3, Ruby Development Libraries (ruby-devel) & Ruby RDoc (ruby-rdoc)
+* rubygems 1.8+
+* Git - Latest
+* Java OpenJDK 1.7.0_45+
+* Postgres 9.x Recommended (8.x required)
+* GCC GCC-C++ (4.4.7+)
+* LibXML (libxml2-devel) - latest compatible with RHEL 6.x
+* LibXSLT (libxslt-devel) - latest compatible with RHEL 6.x
+* Libcurl (libcurl-devel) - latest compatible with RHEL 6.x
+* EPEL Repository (http://download.fedoraproject.org/pub/epel/6/i386/epel-release-6-8.noarch.rpm)
+* ClamAV Clamd
+* RSyslog - latest compatible with RHEL 6.x
+* Crontabs - latest compatible with RHEL 6.x
+* Squid - latest compatible with RHEL 6.x
+* Apache Dev Libraries (http-devel) - latest compatible with RHEL 6.x
+* RPMForge Repository (http://packages.sw.be/rpmforge-release/rpmforge-release-0.5.2-2.el6.rf.x86_64.rpm)
+* ffmpeg (requires RPMForge)
+* mencoder (requires RPMForge)
+* libquicktime (requires RPMForge)
+* Global Gems 
+** thin 1.6.2 
+** sys-proctable 0.9.0 (cannot install latest versions without upgrading Ruby, sys-proctable 1.2+ requires Ruby 2+ and extensive code changes as the API changed)
+* User accounts 
+** daitss user with daitss user configured on postgres and sudo permissions
 
-thin 1.6.2 
-
-sys-proctable 0.9.0 (cannot install latest versions without upgrading Ruby, sys-proctable 1.2+ requires Ruby 2+ and extensive code changes as the API changed)
-
-User accounts 
-daitss user with daitss user configured on postgres and sudo permissions
 Note: Typically Git and GCC/GCC-C++ will already be up-to-date on most installations but this should still be verified.
-
 
 
 ## Original Installation Guide
@@ -46,15 +43,17 @@ https://daitss.fcla.edu/content/documentation
 
 # Step-by-step Install Guide
 ## Before You Begin
-Requires Red Hat Enterprise Linux (RHEL) 6.9 or CentOS 6.x, instructions written assuming using RHEL 6.9. Instructions may vary somewhat for a different distro
-Install Linux choice with desktop minimal installation as a minimum requirement
-Create daitss user that is a sudoer
-partition created and mounted @ /var/daitss/silo, owned by daitss user (this step is optional on a local VM and may not even be critical on a server environment, is dictated mostly by hardware requirements)
+* Requires Red Hat Enterprise Linux (RHEL) 6.9 or CentOS 6.x, instructions written assuming using RHEL 6.9. Instructions may vary somewhat for a different distro
+* Install Linux choice with desktop minimal installation as a minimum requirement
+* Create daitss user that is a sudoer
+* partition created and mounted @ /var/daitss/silo, owned by daitss user (this step is optional on a local VM and may not even be critical on a server environment, is dictated mostly by hardware requirements)
+
 ## Things to know
-System name referenced as '{system name}' in install instructions, replace this reference with your system name (i.e. - root@{system name} should be root@foo if your system name is foo)
-The commands will be prefaced by the user they should be executed with, so be aware of this (if a command is prefaced by 'root@system' then the command should be run by root)
-References to yum are referring to the Red Hat Package Manager yum. If installing on a linux distribution that does not use yum, obtain the appropriate RPM packages using your package manager of choice
-Commands will be followed by a description and any comments/notes
+* System name referenced as '{system name}' in install instructions, replace this reference with your system name (i.e. - root@{system name} should be root@foo if your system name is foo)
+* The commands will be prefaced by the user they should be executed with, so be aware of this (if a command is prefaced by 'root@system' then the command should be run by root)
+* References to yum are referring to the Red Hat Package Manager yum. If installing on a linux distribution that does not use yum, obtain the appropriate RPM packages using your package manager of choice
+* Commands will be followed by a description and any comments/notes
+
 ## Install Guide 
 ### Configure Dependencies
 #### Update System
